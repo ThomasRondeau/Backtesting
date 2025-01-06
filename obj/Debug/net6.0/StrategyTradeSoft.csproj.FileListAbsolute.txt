@@ -1,0 +1,14 @@
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.AssemblyInfoInputs.cache
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.AssemblyInfo.cs
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.csproj.CoreCompileInputs.cache
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\bin\Debug\net6.0\StrategyTradeSoft.exe
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\bin\Debug\net6.0\StrategyTradeSoft.deps.json
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\bin\Debug\net6.0\StrategyTradeSoft.runtimeconfig.json
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\bin\Debug\net6.0\StrategyTradeSoft.dll
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\bin\Debug\net6.0\StrategyTradeSoft.pdb
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.dll
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\refint\StrategyTradeSoft.dll
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.pdb
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\StrategyTradeSoft.genruntimeconfig.cache
+C:\Users\marco\Documents\Project_Commando_C#\StrategyTradeSoft\StrategyTradeSoft\obj\Debug\net6.0\ref\StrategyTradeSoft.dll
