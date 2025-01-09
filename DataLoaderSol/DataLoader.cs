@@ -196,4 +196,35 @@ public class DataLoader
             Console.WriteLine($"Error reading the CSV file: {ex.Message}");
         }
     }
+    
+    public static void TestEnv()
+    {
+        Console.WriteLine($"Répertoire courant : {Directory.GetCurrentDirectory()}");
+
+        try
+        {
+            // Charge les variables d'environnement
+            DotEnv.Load();
+
+            // Vérifie si la clé API est bien chargée
+            string apiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                Console.WriteLine("Erreur : La clé API n'est pas chargée. Vérifiez le fichier .env.");
+            }
+            else
+            {
+                Console.WriteLine($"Clé API chargée avec succès : {apiKey}");
+            }
+
+            // Vérifie le chemin courant pour voir où il cherche le fichier .env
+            Console.WriteLine($"Répertoire courant : {Directory.GetCurrentDirectory()}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erreur lors du test du fichier .env : {ex.Message}");
+        }
+    }
+
 }
