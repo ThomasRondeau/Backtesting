@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtesting", "Backtesting\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{F73BBB66-FB23-4205-974D-6643C653282E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrategyTradeSoft", "StrategyTradeSoft\StrategyTradeSoft.csproj", "{8DD5625F-DC5C-4E74-9DF1-C9C77F1FEB73}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F73BBB66-FB23-4205-974D-6643C653282E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F73BBB66-FB23-4205-974D-6643C653282E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F73BBB66-FB23-4205-974D-6643C653282E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD5625F-DC5C-4E74-9DF1-C9C77F1FEB73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD5625F-DC5C-4E74-9DF1-C9C77F1FEB73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD5625F-DC5C-4E74-9DF1-C9C77F1FEB73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD5625F-DC5C-4E74-9DF1-C9C77F1FEB73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
