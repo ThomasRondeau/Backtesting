@@ -4,7 +4,7 @@ using StrategyTradeSoft.Classes;
 
 namespace StrategyTradeSoft.Strategies
 {
-    public class MovingAverageCrossoverStrategy : Strategy
+    public partial class MovingAverageCrossoverStrategy : Strategy
     {
         private Queue<float> shortWindow = new Queue<float>();
         private Queue<float> longWindow = new Queue<float>();
