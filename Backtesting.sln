@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{F73B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StrategyTradeSoft", "StrategyTradeSoft\StrategyTradeSoft.csproj", "{44B2EC0F-7F92-41E1-9439-E2E8C3427965}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BacktestingProject", "OrderExecutor\BacktestingProject.csproj", "{2DDD8C77-64A7-402A-93D8-C5B68BDB04F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{44B2EC0F-7F92-41E1-9439-E2E8C3427965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44B2EC0F-7F92-41E1-9439-E2E8C3427965}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44B2EC0F-7F92-41E1-9439-E2E8C3427965}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DDD8C77-64A7-402A-93D8-C5B68BDB04F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DDD8C77-64A7-402A-93D8-C5B68BDB04F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DDD8C77-64A7-402A-93D8-C5B68BDB04F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DDD8C77-64A7-402A-93D8-C5B68BDB04F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
