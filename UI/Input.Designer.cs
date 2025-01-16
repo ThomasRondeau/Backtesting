@@ -29,47 +29,38 @@
         private void InitializeComponent()
         {
             flowLayoutPanel1 = new FlowLayoutPanel();
-            groupBox1 = new GroupBox();
             label1 = new Label();
             button1 = new Button();
-            flowLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(groupBox1);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(169, 62);
+            flowLayoutPanel1.Location = new Point(118, 37);
+            flowLayoutPanel1.Margin = new Padding(2, 2, 2, 2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1462, 878);
+            flowLayoutPanel1.Size = new Size(1023, 527);
             flowLayoutPanel1.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Location = new Point(3, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1447, 201);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Product 1";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(11, 0);
+            label1.Location = new Point(8, 0);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(387, 48);
+            label1.Size = new Size(255, 32);
             label1.TabIndex = 1;
             label1.Text = "Define your strategy";
             label1.UseMnemonic = false;
             // 
             // button1
             // 
-            button1.Location = new Point(25, 393);
+            button1.Location = new Point(18, 236);
+            button1.Margin = new Padding(2, 2, 2, 2);
             button1.Name = "button1";
-            button1.Size = new Size(112, 90);
+            button1.Size = new Size(78, 54);
             button1.TabIndex = 1;
             button1.Text = "Add product";
             button1.UseVisualStyleBackColor = true;
@@ -77,15 +68,15 @@
             // 
             // Input
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1643, 946);
+            ClientSize = new Size(1150, 568);
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "Input";
             Text = "TradeSoft - Strategy definition";
-            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -93,7 +84,6 @@
         #endregion
 
         private FlowLayoutPanel flowLayoutPanel1;
-        private GroupBox groupBox1;
         private Label label1;
         private Button button1;
     }
