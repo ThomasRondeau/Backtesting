@@ -29,7 +29,7 @@ public class OllamaService
         {
             model = _modelName,
             prompt = prompt,
-            stream = false  // Important : mettre explicitement à false pour une réponse unique
+            stream = false  // Important car sinon mauvais processing du texte et erreur
         };
 
         var jsonContent = JsonSerializer.Serialize(request);
@@ -41,7 +41,7 @@ public class OllamaService
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            // Extraire la réponse du JSON selon le format Ollama
+            
             var responseObject = JsonSerializer.Deserialize<JsonElement>(responseContent);
             return responseObject.GetProperty("response").GetString();
         }
@@ -51,7 +51,6 @@ public class OllamaService
         }
     }
 
-    // Méthode pour le streaming des réponses
     public async IAsyncEnumerable<string> GenerateStreamResponse(string prompt)
     {
         var request = new GenerateRequest
@@ -88,25 +87,3 @@ public class OllamaService
         }
     }
 }
-
-// Exemple d'utilisation
-
-/*
-public class ExampleUsage
-{
-    public static async Task Main()
-    {
-        var ollama = new OllamaService("llama3.2");
-
-        // Utilisation simple
-        var response = await ollama.GenerateResponse("Explique moi le concept de récursivité");
-        Console.WriteLine(response);
-
-        // Utilisation avec streaming
-        await foreach (var chunk in ollama.GenerateStreamResponse("Écris un poème sur le printemps"))
-        {
-            Console.Write(chunk);
-        }
-    }
-}
-*/
