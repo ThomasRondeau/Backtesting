@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 
-namespace StrategyTradeSoft.Classes
+namespace StrategyTradeSoft
 {
 	public abstract class Strategy
 	{
