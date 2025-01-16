@@ -1,4 +1,4 @@
-namespace StrategyTradeSoft.Classes
+namespace StrategyTradeSoft
 {
 	public class Tick
 	{
