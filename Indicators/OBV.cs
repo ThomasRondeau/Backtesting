@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Backtesting.Indicators
+namespace IndicatorsApp.Indicators
 {
     public class OBV : Indicators
     {

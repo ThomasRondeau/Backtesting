@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Backtesting.Indicators
+namespace IndicatorsApp.Indicators
 {
     public class IchimokuCloud : Indicators
     {

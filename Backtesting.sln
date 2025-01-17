@@ -16,7 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderExecutor", "OrderExecu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAlpha", "DataLoaderSol\TestAlpha.csproj", "{5F717D21-952F-4CE3-A302-7CA91026FC9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtesting.Tests", "Backtesting.Tests\Backtesting.Tests.csproj", "{319EF838-C2C5-43D9-81E5-71DF2B906640}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backtesting.Tests", "Backtesting.Tests\Backtesting.Tests.csproj", "{319EF838-C2C5-43D9-81E5-71DF2B906640}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndicatorsApp", "Indicators\IndicatorsApp.csproj", "{E5E15FB6-A61C-49B8-970D-BB9E9467DDA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{319EF838-C2C5-43D9-81E5-71DF2B906640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{319EF838-C2C5-43D9-81E5-71DF2B906640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{319EF838-C2C5-43D9-81E5-71DF2B906640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E15FB6-A61C-49B8-970D-BB9E9467DDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E15FB6-A61C-49B8-970D-BB9E9467DDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E15FB6-A61C-49B8-970D-BB9E9467DDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E15FB6-A61C-49B8-970D-BB9E9467DDA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

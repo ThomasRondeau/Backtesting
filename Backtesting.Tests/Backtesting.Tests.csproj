@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Backtesting\Backtesting.csproj" />
+    <ProjectReference Include="..\Indicators\IndicatorsApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
