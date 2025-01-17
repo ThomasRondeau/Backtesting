@@ -10,23 +10,16 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Welcome : Form
+    public partial class Welcome : UserControl
     {
         public Welcome()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            DataSelection dataSelection = new DataSelection();
-            dataSelection.Show();
-            this.Hide();
+            
         }
     }
 }

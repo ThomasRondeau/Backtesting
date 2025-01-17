@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class DataSelection : Form
+    public partial class DataSelection : UserControl
     {
         public DataSelection()
         {
@@ -19,9 +19,8 @@ namespace UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Input input = new Input();
+            InputForm input = new InputForm();
             input.Show();
-            this.Close();
         }
     }
 }

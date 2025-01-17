@@ -2,15 +2,15 @@
 {
     partial class Welcome
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// Variable nécessaire au concepteur.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,14 +20,16 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Code généré par le Concepteur de composants
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+        /// le contenu de cette méthode avec l'éditeur de code.
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
@@ -42,7 +44,6 @@
             label1.Size = new Size(237, 65);
             label1.TabIndex = 0;
             label1.Text = "Welcome";
-            label1.Click += label1_Click;
             // 
             // button1
             // 

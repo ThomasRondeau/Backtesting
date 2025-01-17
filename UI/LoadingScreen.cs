@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Loading : Form
+    public partial class LoadingScreen : UserControl
     {
-        public Loading()
+        public LoadingScreen()
         {
             InitializeComponent();
         }
