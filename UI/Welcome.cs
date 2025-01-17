@@ -10,16 +10,17 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Welcome : UserControl
+    public partial class Welcome : Page
     {
-        public Welcome()
+        public Welcome(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            DataSelection dataPage = new DataSelection(Navigator);
+            Navigator.GoTo(dataPage);
         }
     }
 }

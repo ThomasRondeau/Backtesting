@@ -10,17 +10,17 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class DataSelection : UserControl
+    public partial class DataSelection : Page
     {
-        public DataSelection()
+        public DataSelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            InputForm input = new InputForm();
-            input.Show();
+            StrategySelection stratPage = new StrategySelection(Navigator);
+            Navigator.GoTo(stratPage);
         }
     }
 }

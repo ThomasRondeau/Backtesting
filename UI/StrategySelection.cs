@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class StrategySelection : UserControl
+    public partial class StrategySelection : Page
     {
-        public StrategySelection()
+        public StrategySelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
         }
@@ -55,6 +55,8 @@ namespace UI
 
         private void button2_Click(object sender, EventArgs e)
         {
+            LoadingScreen loadPage = new LoadingScreen(Navigator);
+            Navigator.GoTo(loadPage);
         }
     }
 }

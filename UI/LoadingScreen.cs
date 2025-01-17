@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class LoadingScreen : UserControl
+    public partial class LoadingScreen : Page
     {
-        public LoadingScreen()
+        public LoadingScreen(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
         }

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace UI
 {
-    public partial class Output : UserControl
+    public partial class Output : Page
     {
-        public Output()
+        public Output(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
         }
