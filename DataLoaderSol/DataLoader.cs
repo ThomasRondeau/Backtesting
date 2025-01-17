@@ -1,4 +1,4 @@
-namespace TestAlpha;
+namespace TestPolygon;
 
 using System;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 
-public class DataLoader
+public class ForexDataLoader
 {
     private string _apiKey;
     private RestClient _client;
@@ -15,9 +15,9 @@ public class DataLoader
     public bool Verbose { get; set; } // Enables or disables verbose output
 
     // Initialize the data loader without API key
-    public DataLoader(bool verbose = false)
+    public ForexDataLoader(bool verbose = false)
     {
-        _client = new RestClient("https://www.alphavantage.co");
+        _client = new RestClient("https://api.polygon.io");
         Verbose = verbose;
     }
 
@@ -30,7 +30,7 @@ public class DataLoader
         }
 
         _apiKey = apiKey;
-        _client = new RestClient("https://www.alphavantage.co");
+        _client = new RestClient("https://api.polygon.io");
 
         if (Verbose)
         {
@@ -41,14 +41,14 @@ public class DataLoader
     // Initialize the data loader with API key from environment variables
     public void InitializeFromEnvironment()
     {
-        var apiKey = Environment.GetEnvironmentVariable("ALPHAVANTAGE_API_KEY");
+        var apiKey = Environment.GetEnvironmentVariable("POLYGON_API_KEY");
         if (string.IsNullOrEmpty(apiKey))
         {
-            throw new InvalidOperationException("API key not found in environment variables. Please set the 'ALPHAVANTAGE_API_KEY' variable.");
+            throw new InvalidOperationException("API key not found in environment variables. Please set the 'POLYGON_API_KEY' variable.");
         }
 
         _apiKey = apiKey;
-        _client = new RestClient("https://www.alphavantage.co");
+        _client = new RestClient("https://api.polygon.io");
 
         if (Verbose)
         {
@@ -56,74 +56,54 @@ public class DataLoader
         }
     }
 
-    // Fetch data for a specific stock over a given period
-    public async Task<JObject> GetStockDataAsync(string symbol, DateTime startDate, DateTime endDate, string interval = "daily", string outputSize = "compact")
+    // Fetch forex data for a specific pair over a given period
+    public async Task<JObject> GetForexDataAsync(string fromSym, string toSym, DateTime startDate, DateTime endDate)
     {
         if (string.IsNullOrEmpty(_apiKey))
         {
             throw new InvalidOperationException("API key is not initialized. Call Initialize() with a valid API key.");
         }
 
-        var request = new RestRequest("/query", Method.Get);
-        request.AddParameter("function", "TIME_SERIES_" + interval.ToUpper());
-        request.AddParameter("symbol", symbol);
-        request.AddParameter("apikey", _apiKey);
-        request.AddParameter("outputsize", outputSize);
+        var requestUrl = $"/v2/aggs/ticker/C:{fromSym}{toSym}/range/1/day/{startDate:yyyy-MM-dd}/{endDate:yyyy-MM-dd}";
+        requestUrl += "?adjusted=true&sort=asc";
+
+        var request = new RestRequest(requestUrl, Method.Get);
+        request.AddParameter("apiKey", _apiKey);
+
+        Console.WriteLine($"Request URL: https://api.polygon.io{requestUrl}");
+
 
         if (Verbose)
         {
-            Console.WriteLine($"Fetching data for symbol: {symbol}, Interval: {interval}, Output Size: {outputSize}");
+            Console.WriteLine($"Fetching forex data for: {fromSym}/{toSym}, Start Date: {startDate:yyyy-MM-dd}, End Date: {endDate:yyyy-MM-dd}");
         }
 
         var response = await _client.ExecuteAsync(request);
 
         if (!response.IsSuccessful)
         {
-            throw new Exception($"Error fetching data from Alpha Vantage: {response.StatusDescription}");
+            throw new Exception($"Error fetching data from Polygon API: {response.StatusDescription}");
         }
 
         if (Verbose)
         {
             Console.WriteLine("Data fetched successfully.");
+            Console.WriteLine("Response Content:");
+            Console.WriteLine(response.Content);
         }
 
         var data = JObject.Parse(response.Content);
 
-        if (Verbose)
+        if (!data.ContainsKey("results"))
         {
-            Console.WriteLine("Response Content:");
-            Console.WriteLine(response.Content);
-
-            Console.WriteLine("Available keys in the response:");
-            foreach (var key in data.Properties())
-            {
-                Console.WriteLine(key.Name);
-            }
+            throw new Exception("No forex data found in the response. Verify the currency pair and date range.");
         }
 
-        var timeSeriesKey = data.Properties().FirstOrDefault(p => p.Name.StartsWith("Time Series"))?.Name;
-
-        if (string.IsNullOrEmpty(timeSeriesKey))
-        {
-            throw new Exception("Time series data not found in the response.");
-        }
-
-        var timeSeriesData = data[timeSeriesKey] as JObject;
-
-
-
-        if (timeSeriesData == null)
-        {
-            throw new Exception("Time series data object is null. Verify the response structure.");
-        }
-
-        
-
-        return timeSeriesData;
+        return data;
     }
 
     // Save the data to a CSV file
-    public void SaveDataToCsv(JObject data, string filePath)
+    public void SaveForexDataToCsv(JObject data, string filePath)
     {
         if (data == null || !data.HasValues)
         {
@@ -132,19 +112,18 @@ public class DataLoader
 
         using (var writer = new StreamWriter(filePath))
         {
-            writer.WriteLine("Date,Open,High,Low,Close");
+            writer.WriteLine("Date,Open,High,Low,Close,Volume");
 
-            foreach (var property in data.Properties())
+            foreach (var result in data["results"])
             {
-                var date = property.Name;
-                var details = property.Value as JObject;
+                var date = DateTimeOffset.FromUnixTimeMilliseconds((long)result["t"]).DateTime.ToString("yyyy-MM-dd");
+                var open = result["o"]?.ToString() ?? "N/A";
+                var high = result["h"]?.ToString() ?? "N/A";
+                var low = result["l"]?.ToString() ?? "N/A";
+                var close = result["c"]?.ToString() ?? "N/A";
+                var volume = result["v"]?.ToString() ?? "N/A";
 
-                var open = details?["1. open"]?.ToString() ?? "N/A";
-                var high = details?["2. high"]?.ToString() ?? "N/A";
-                var low = details?["3. low"]?.ToString() ?? "N/A";
-                var close = details?["4. close"]?.ToString() ?? "N/A";
-
-                writer.WriteLine($"{date},{open},{high},{low},{close}");
+                writer.WriteLine($"{date},{open},{high},{low},{close},{volume}");
             }
         }
 
