@@ -1,4 +1,3 @@
-﻿
 namespace Backtesting
 {
     internal class Program
