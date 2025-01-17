@@ -29,30 +29,19 @@
         private void InitializeComponent()
         {
             flowLayoutPanel1 = new FlowLayoutPanel();
-            groupBox1 = new GroupBox();
             label1 = new Label();
             button1 = new Button();
-            flowLayoutPanel1.SuspendLayout();
+            button2 = new Button();
             SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(groupBox1);
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel1.Location = new Point(169, 62);
+            flowLayoutPanel1.Location = new Point(12, 51);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(1462, 878);
+            flowLayoutPanel1.Size = new Size(1461, 878);
             flowLayoutPanel1.TabIndex = 0;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Location = new Point(3, 3);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1447, 201);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Product 1";
             // 
             // label1
             // 
@@ -67,25 +56,36 @@
             // 
             // button1
             // 
-            button1.Location = new Point(25, 393);
+            button1.Location = new Point(1498, 220);
             button1.Name = "button1";
-            button1.Size = new Size(112, 90);
+            button1.Size = new Size(111, 90);
             button1.TabIndex = 1;
             button1.Text = "Add product";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // button2
+            // 
+            button2.Font = new Font("Segoe UI Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.Location = new Point(1483, 632);
+            button2.Name = "button2";
+            button2.Size = new Size(151, 82);
+            button2.TabIndex = 2;
+            button2.Text = "Start simulation";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Input
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1643, 946);
+            ClientSize = new Size(1643, 947);
+            Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(flowLayoutPanel1);
             Name = "Input";
             Text = "TradeSoft - Strategy definition";
-            flowLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -93,8 +93,8 @@
         #endregion
 
         private FlowLayoutPanel flowLayoutPanel1;
-        private GroupBox groupBox1;
         private Label label1;
         private Button button1;
+        private Button button2;
     }
 }

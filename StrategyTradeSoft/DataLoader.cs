@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using StrategyTradeSoft.Classes;
 
-namespace StrategyTradeSoft.Services
+namespace StrategyTradeSoft
 {
     public class DataLoader
     {
@@ -14,7 +13,7 @@ namespace StrategyTradeSoft.Services
 
             using (var reader = new StreamReader(filePath))
             {
-                string? header = reader.ReadLine(); 
+                string? header = reader.ReadLine();
                 if (header == null)
                     throw new Exception("CSV file is empty.");
 
@@ -30,7 +29,7 @@ namespace StrategyTradeSoft.Services
                     var low = float.Parse(columns[3], CultureInfo.InvariantCulture);
                     var close = float.Parse(columns[4], CultureInfo.InvariantCulture);
 
-                    ticks.Add(new Tick(date, "OHLC", (int)(close * 1000), close)); 
+                    ticks.Add(new Tick(date, "OHLC", (int)(close * 1000), close));
                 }
             }
 
@@ -38,4 +37,3 @@ namespace StrategyTradeSoft.Services
         }
     }
 }
-

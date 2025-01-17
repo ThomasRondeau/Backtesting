@@ -6,225 +6,154 @@ using System.Linq;
 using System.Threading.Tasks;
 using RestSharp;
 using Newtonsoft.Json.Linq;
-using dotenv.net;
 
 public class DataLoader
 {
-    private readonly string _apiKey;
-    private readonly RestClient _client;
-    private readonly string _tempFolderPath;
+    private string _apiKey;
+    private RestClient _client;
 
-    public DataLoader()
+    public bool Verbose { get; set; } // Enables or disables verbose output
+
+    // Initialize the data loader without API key
+    public DataLoader(bool verbose = false)
     {
-        // Load environment variables
-        DotEnv.Load();
+        _client = new RestClient("https://www.alphavantage.co");
+        Verbose = verbose;
+    }
 
-        // Get the API key
-        _apiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
-        if (string.IsNullOrEmpty(_apiKey))
+    // Initialize the data loader with API key
+    public void Initialize(string apiKey)
+    {
+        if (string.IsNullOrEmpty(apiKey))
         {
-            throw new Exception("API key is missing. Ensure it's set in the .env file.");
+            throw new ArgumentException("API key cannot be null or empty.", nameof(apiKey));
         }
 
-        // Initialize the RestClient
+        _apiKey = apiKey;
         _client = new RestClient("https://www.alphavantage.co");
 
-        // Initialize the temp folder path inside the project directory
-        _tempFolderPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory)?.Parent?.Parent?.Parent?.FullName ?? ".", "temp");
-
-        // Create the temp folder if it does not exist
-        if (!Directory.Exists(_tempFolderPath))
+        if (Verbose)
         {
-            Directory.CreateDirectory(_tempFolderPath);
+            Console.WriteLine("API key initialized successfully.");
         }
     }
 
-    public async Task<JObject> LoadDataAsync(string fromSymbol, string toSymbol, DateTime startDate, DateTime endDate, string function = "FX_DAILY", string outputSize = "full")
+    // Initialize the data loader with API key from environment variables
+    public void InitializeFromEnvironment()
     {
-        // Build the API request
+        var apiKey = Environment.GetEnvironmentVariable("ALPHAVANTAGE_API_KEY");
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            throw new InvalidOperationException("API key not found in environment variables. Please set the 'ALPHAVANTAGE_API_KEY' variable.");
+        }
+
+        _apiKey = apiKey;
+        _client = new RestClient("https://www.alphavantage.co");
+
+        if (Verbose)
+        {
+            Console.WriteLine("API key initialized from environment variables.");
+        }
+    }
+
+    // Fetch data for a specific stock over a given period
+    public async Task<JObject> GetStockDataAsync(string symbol, DateTime startDate, DateTime endDate, string interval = "daily", string outputSize = "compact")
+    {
+        if (string.IsNullOrEmpty(_apiKey))
+        {
+            throw new InvalidOperationException("API key is not initialized. Call Initialize() with a valid API key.");
+        }
+
         var request = new RestRequest("/query", Method.Get);
-        request.AddParameter("function", function);
-        request.AddParameter("from_symbol", fromSymbol);
-        request.AddParameter("to_symbol", toSymbol);
+        request.AddParameter("function", "TIME_SERIES_" + interval.ToUpper());
+        request.AddParameter("symbol", symbol);
         request.AddParameter("apikey", _apiKey);
         request.AddParameter("outputsize", outputSize);
 
-        // Execute the request
+        if (Verbose)
+        {
+            Console.WriteLine($"Fetching data for symbol: {symbol}, Interval: {interval}, Output Size: {outputSize}");
+        }
+
         var response = await _client.ExecuteAsync(request);
 
-        if (response.IsSuccessful)
-        {
-            // Parse the response content into a JObject
-            var data = JObject.Parse(response.Content);
-
-            if (data.ContainsKey("Time Series FX (Daily)"))
-            {
-                var timeSeriesData = data["Time Series FX (Daily)"] as JObject;
-
-                // Filter the time series data based on the date range
-                var filteredData = new JObject();
-
-                foreach (var property in timeSeriesData.Properties())
-                {
-                    DateTime entryDate = DateTime.Parse(property.Name);
-                    if (entryDate >= startDate && entryDate <= endDate)
-                    {
-                        filteredData.Add(property.Name, property.Value);
-                    }
-                }
-
-                // Print the first 5 rows of the filtered data
-                Console.WriteLine("First 5 rows of data:");
-                //int rowCount = 0;
-                foreach (var property in filteredData.Properties().Take(5))
-                {
-                    Console.WriteLine($"Date: {property.Name}, Data: {property.Value}");
-                    //rowCount++;
-                }
-
-                /*if (rowCount == 0)
-                {
-                    Console.WriteLine("No data available for the specified date range.");
-                }*/
-
-                return filteredData;
-            }
-            else
-            {
-                Console.WriteLine(data);
-                throw new Exception("Error: No 'Time Series FX (Daily)' data found in the response.");
-            }
-        }
-        else
+        if (!response.IsSuccessful)
         {
             throw new Exception($"Error fetching data from Alpha Vantage: {response.StatusDescription}");
         }
+
+        if (Verbose)
+        {
+            Console.WriteLine("Data fetched successfully.");
+        }
+
+        var data = JObject.Parse(response.Content);
+
+        if (Verbose)
+        {
+            Console.WriteLine("Response Content:");
+            Console.WriteLine(response.Content);
+
+            Console.WriteLine("Available keys in the response:");
+            foreach (var key in data.Properties())
+            {
+                Console.WriteLine(key.Name);
+            }
+        }
+
+        var timeSeriesKey = data.Properties().FirstOrDefault(p => p.Name.StartsWith("Time Series"))?.Name;
+
+        if (string.IsNullOrEmpty(timeSeriesKey))
+        {
+            throw new Exception("Time series data not found in the response.");
+        }
+
+        var timeSeriesData = data[timeSeriesKey] as JObject;
+
+
+
+        if (timeSeriesData == null)
+        {
+            throw new Exception("Time series data object is null. Verify the response structure.");
+        }
+
+        
+
+        return timeSeriesData;
     }
 
-    public void SaveDataToCsv(JObject timeSeriesData, string fromSymbol, string toSymbol)
+    // Save the data to a CSV file
+    public void SaveDataToCsv(JObject data, string filePath)
     {
-        // Build the file name dynamically
-        string fileName = $"{fromSymbol}-{toSymbol}.csv";
-        string filePath = Path.Combine(_tempFolderPath, fileName);
+        if (data == null || !data.HasValues)
+        {
+            throw new ArgumentException("Data is null or empty.", nameof(data));
+        }
 
-        using (StreamWriter writer = new StreamWriter(filePath))
+        using (var writer = new StreamWriter(filePath))
         {
             writer.WriteLine("Date,Open,High,Low,Close");
 
-            foreach (var property in timeSeriesData.Properties())
+            foreach (var property in data.Properties())
             {
-                string date = property.Name; // Get the date key
+                var date = property.Name;
                 var details = property.Value as JObject;
-                string open = details?["1. open"]?.ToString() ?? "N/A";
-                string high = details?["2. high"]?.ToString() ?? "N/A";
-                string low = details?["3. low"]?.ToString() ?? "N/A";
-                string close = details?["4. close"]?.ToString() ?? "N/A";
+
+                var open = details?["1. open"]?.ToString() ?? "N/A";
+                var high = details?["2. high"]?.ToString() ?? "N/A";
+                var low = details?["3. low"]?.ToString() ?? "N/A";
+                var close = details?["4. close"]?.ToString() ?? "N/A";
 
                 writer.WriteLine($"{date},{open},{high},{low},{close}");
             }
         }
 
-        Console.WriteLine($"Data successfully saved to: {filePath}");
-    }
+        Console.WriteLine($"Data saved successfully to: {filePath}");
 
-    public async Task LoadFromCsvAsync(string csvPath, DateTime startDate, DateTime endDate)
-    {
-        if (!File.Exists(csvPath))
+        if (Verbose)
         {
-            Console.WriteLine($"Error: The input CSV file was not found. Current path: {Directory.GetCurrentDirectory()}");
-            throw new FileNotFoundException("The specified CSV file does not exist.", csvPath);
-        }
-
-        try
-        {
-            using (var reader = new StreamReader(csvPath))
-            {
-                // Read the header line
-                var headerLine = await reader.ReadLineAsync();
-                if (string.IsNullOrWhiteSpace(headerLine))
-                {
-                    throw new Exception("The CSV file is empty.");
-                }
-
-                var headers = headerLine.Split(',');
-                int fromSymbolIndex = Array.IndexOf(headers, "fromSymbol");
-                int toSymbolIndex = Array.IndexOf(headers, "toSymbol");
-
-                if (fromSymbolIndex == -1 || toSymbolIndex == -1)
-                {
-                    throw new Exception("The CSV file must contain 'fromSymbol' and 'toSymbol' columns.");
-                }
-
-                // Process each line in the CSV
-                while (!reader.EndOfStream)
-                {
-                    var line = await reader.ReadLineAsync();
-                    var columns = line.Split(',');
-
-                    if (columns.Length <= Math.Max(fromSymbolIndex, toSymbolIndex))
-                    {
-                        Console.WriteLine("Skipping invalid line in CSV: " + line);
-                        continue;
-                    }
-
-                    string fromSymbol = columns[fromSymbolIndex].Trim();
-                    string toSymbol = columns[toSymbolIndex].Trim();
-
-                    if (string.IsNullOrWhiteSpace(fromSymbol) || string.IsNullOrWhiteSpace(toSymbol))
-                    {
-                        Console.WriteLine("Skipping line with missing symbols: " + line);
-                        continue;
-                    }
-
-                    Console.WriteLine($"Processing {fromSymbol}/{toSymbol}");
-
-                    try
-                    {
-                        // Download data and save it
-                        var data = await LoadDataAsync(fromSymbol, toSymbol, startDate, endDate);
-                        SaveDataToCsv(data, fromSymbol, toSymbol);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"Error processing {fromSymbol}/{toSymbol}: {ex.Message}");
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error reading the CSV file: {ex.Message}");
+            Console.WriteLine("Saved data:");
+            Console.WriteLine(File.ReadAllText(filePath));
         }
     }
-    
-    public static void TestEnv()
-    {
-        Console.WriteLine($"Répertoire courant : {Directory.GetCurrentDirectory()}");
-
-        try
-        {
-            // Charge les variables d'environnement
-            DotEnv.Load();
-
-            // Vérifie si la clé API est bien chargée
-            string apiKey = Environment.GetEnvironmentVariable("ALPHA_VANTAGE_API_KEY");
-
-            if (string.IsNullOrEmpty(apiKey))
-            {
-                Console.WriteLine("Erreur : La clé API n'est pas chargée. Vérifiez le fichier .env.");
-            }
-            else
-            {
-                Console.WriteLine($"Clé API chargée avec succès : {apiKey}");
-            }
-
-            // Vérifie le chemin courant pour voir où il cherche le fichier .env
-            Console.WriteLine($"Répertoire courant : {Directory.GetCurrentDirectory()}");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Erreur lors du test du fichier .env : {ex.Message}");
-        }
-    }
-
 }

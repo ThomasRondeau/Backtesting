@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backtesting", "Backtesting\Backtesting.csproj", "{F456E94B-4017-4AF5-AAF0-F6F5D45DEC99}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F73BBB66-FB23-4205-974D-6643C653282E} = {F73BBB66-FB23-4205-974D-6643C653282E}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{F73BBB66-FB23-4205-974D-6643C653282E}"
 EndProject
