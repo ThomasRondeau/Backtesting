@@ -1,42 +1,48 @@
-﻿using System;
-using System.IO;
+﻿namespace TestPolygon;
+
+using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace TestPolygon
+class Program
 {
-    class Program
+    static async Task Main(string[] args)
     {
-        static async Task Main(string[] args)
+        try
         {
             // Initialize the ForexDataLoader
             var dataLoader = new ForexDataLoader(verbose: true);
 
-            try
-            {
-                // Initialize the API key
-                dataLoader.Initialize("nfVWzVENmPlB9tXk06WS7TLF7GANhAHo"); // Alternatively, use dataLoader.Initialize("Your_API_Key");
+            // Reset the XML database
+            Console.WriteLine("[INFO] Resetting the XML database...");
+            dataLoader.ResetXML();
 
-                // Define forex pair and date range
-                string fromSymbol = "USD";
-                string toSymbol = "EUR";
-                DateTime startDate = new DateTime(2023, 1, 1);
-                DateTime endDate = new DateTime(2023, 12, 31);
+            // Initialize API key (use your own or set it in environment variables)
+            dataLoader.Initialize("Op7aVxAltGZoKdjmiJaNzhrd9xeSZI6P");
 
-                // Fetch forex data
-                Console.WriteLine("Fetching forex data...");
-                JObject forexData = await dataLoader.GetForexDataAsync(fromSymbol, toSymbol, startDate, endDate);
+            // Define forex pair and date range
+            string fromSymbol = "USD";
+            string toSymbol = "EUR";
+            DateTime startDate = new DateTime(2023, 1, 1);
+            DateTime endDate = new DateTime(2023, 1, 10);
 
-                // Save data to a CSV file
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ForexData.csv");
-                dataLoader.SaveForexDataToCsv(forexData, filePath);
+            // Fetch forex data using FetchForexDataFromApi the first time
+            Console.WriteLine("[INFO] Fetching forex data for the first time using FetchForexData");
+            JObject forexDataFirst = await dataLoader.FetchForexData(fromSymbol, toSymbol, startDate, endDate);
+            Console.WriteLine("[INFO] First fetch completed.");
+            
 
-                Console.WriteLine($"Forex data saved to {filePath}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+
+            // Fetch forex data again using FetchForexData
+            Console.WriteLine("[INFO] Fetching forex data for the second time using FetchForexData...");
+            JObject forexDataSecond = await dataLoader.FetchForexData(fromSymbol, toSymbol, startDate, endDate);
+            Console.WriteLine("[INFO] Second fetch completed.");
+
+            Console.WriteLine("[INFO] Test completed successfully.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"[ERROR] An error occurred: {ex.Message}");
         }
     }
 }

@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <Compile Remove="TestSQLite.cs" />
+      <Compile Remove="DataLoaderBDD.cs" />
     </ItemGroup>
 
     <ItemGroup>
