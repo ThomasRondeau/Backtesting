@@ -11,11 +11,21 @@ namespace StrategyTradeSoft
 
         protected List<Indicators> IndicatorsList = new List<Indicators>();
 
+        protected DateOnly startDate;
+
+        protected DateOnly endDate;
+
+        protected double Notional;
+
         protected List<string> LogMessages = new List<string>();
 
-        public Strategy()
+        public Strategy(List<Indicators> indicators, DateOnly startDate, DateOnly endDate, double notional)
         {
             Id = IdCounter++;
+            IndicatorsList = indicators;
+            this.startDate = startDate;
+            this.endDate = endDate;
+            Notional = notional;
         }
 
         public abstract void Next(Tick tick);
