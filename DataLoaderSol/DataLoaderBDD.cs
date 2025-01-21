@@ -52,7 +52,5 @@ namespace TestAlpha
                 Console.WriteLine("API key initialized successfully.");
             }
         }
-
-        
     }
 }

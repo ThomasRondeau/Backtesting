@@ -13,4 +13,8 @@
     <PackageReference Include="ScottPlot.WinForms" Version="5.0.52" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Indicators\IndicatorsApp.csproj" />
+  </ItemGroup>
+
 </Project>

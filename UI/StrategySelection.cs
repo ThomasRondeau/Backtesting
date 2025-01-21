@@ -1,9 +1,11 @@
-﻿using System;
+﻿using IndicatorsApp.Indicators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,9 +14,19 @@ namespace UI
 {
     public partial class StrategySelection : Page
     {
+        static List<Indicators> indicators = [];
+        static List<string> indicatorsName = [];
         public StrategySelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
+
+            foreach (Type type in
+                Assembly.GetAssembly(typeof(Indicators)).GetTypes()
+                .Where(myType => myType.IsClass && !myType.IsAbstract && myType.IsSubclassOf(typeof(Indicators))))
+            {
+                indicatorsName.Add(type.Name);
+            }
+            indicators.Sort();
         }
 
 
@@ -37,7 +49,8 @@ namespace UI
 
             Label typeLabel = new Label() { Text = "Type de produit", Location = new Point(10, 140) };
             ComboBox typeComboBox = new ComboBox() { Location = new Point(120, 140), Width = 200 };
-            typeComboBox.Items.AddRange(new string[] { "Vanilla", "CFD", "Future", "Swap" });
+
+            typeComboBox.Items.AddRange([.. indicatorsName]);
 
             Button deleteButton = new Button() { Text = "Supprimer", Location = new Point(10, 180), Width = 200, Height = 40 };
             deleteButton.Click += (s, e) => flowLayoutPanel1.Controls.Remove(productBlock);
@@ -55,6 +68,7 @@ namespace UI
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // Pass data to marco
             LoadingScreen loadPage = new LoadingScreen(Navigator);
             Navigator.GoTo(loadPage);
         }

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderExecutor", "OrderExecu
 		{44B2EC0F-7F92-41E1-9439-E2E8C3427965} = {44B2EC0F-7F92-41E1-9439-E2E8C3427965}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAlpha", "DataLoaderSol\TestAlpha.csproj", "{5F717D21-952F-4CE3-A302-7CA91026FC9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManagement", "DataLoaderSol\DataManagement.csproj", "{5F717D21-952F-4CE3-A302-7CA91026FC9C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backtesting.Tests", "Backtesting.Tests\Backtesting.Tests.csproj", "{319EF838-C2C5-43D9-81E5-71DF2B906640}"
 EndProject
