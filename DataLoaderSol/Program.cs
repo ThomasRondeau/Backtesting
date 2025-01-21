@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace TestPolygon
+namespace DataManagement
 {
     class Program
     {

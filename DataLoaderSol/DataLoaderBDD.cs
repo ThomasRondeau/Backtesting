@@ -6,7 +6,7 @@ using System.Xml.Linq;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 
-namespace TestAlpha
+namespace DataManagement
 {
     public class DataLoaderBDD
     {

@@ -1,5 +1,3 @@
-namespace TestPolygon;
-
 using System;
 using System.IO;
 using System.Linq;
