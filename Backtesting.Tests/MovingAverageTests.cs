@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Backtesting.Indicators;
+using IndicatorsApp.Indicators;
 using Xunit;
 
 namespace Backtesting.Tests

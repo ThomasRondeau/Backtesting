@@ -15,9 +15,6 @@ namespace UI
         public DataSelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
-
-
-            
         }
 
         public List<string> getFiles()
@@ -25,6 +22,7 @@ namespace UI
             string solutionDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.Parent?.FullName;
             string tempFolderPath = Path.Combine(solutionDirectory, "DataLoaderSol", "temp");
             List<string> files = Directory.GetFiles(tempFolderPath, "*.csv").ToList();
+            return files;
         }
 
         private void button1_Click(object sender, EventArgs e)

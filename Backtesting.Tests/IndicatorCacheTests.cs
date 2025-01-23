@@ -1,6 +1,6 @@
 using System;
 using Xunit;
-using Backtesting.Indicators;
+using IndicatorsApp.Indicators;
 
 namespace Backtesting.Tests
 {
