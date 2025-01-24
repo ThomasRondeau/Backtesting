@@ -25,7 +25,6 @@ namespace UI
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<MainForm>();
-                    services.AddSingleton<INavigator, NavigatorImplementation>();
                 });
         }
     }
