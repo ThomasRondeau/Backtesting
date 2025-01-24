@@ -1,10 +1,20 @@
-﻿namespace Backtesting
+namespace Backtesting
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            OllamaService ollama = new("llama3.2");
+            var response = await ollama.GenerateResponse("Explique moi le concept de récursivité");
+
+            Console.WriteLine(response);
+            /* mode streaming
+            await foreach (var chunk in ollama.GenerateStreamResponse("Écris un poème sur le printemps"))
+            {
+                Console.Write(chunk);
+            }
+            */
+
         }
     }
 }

@@ -1,16 +1,19 @@
-﻿namespace UI
+﻿using ScottPlot.MultiplotLayouts;
+using System.Windows.Forms;
+
+namespace UI
 {
     partial class Output
     {
-        /// <summary>
-        /// Required designer variable.
+        /// <summary> 
+        /// Variable nécessaire au concepteur.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
+        /// <summary> 
+        /// Nettoyage des ressources utilisées.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,14 +23,18 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Code généré par le Concepteur de composants
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// <summary> 
+        /// Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+        /// le contenu de cette méthode avec l'éditeur de code.
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
+
             dataGridView1 = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
@@ -55,7 +62,6 @@
             dataGridView1.RowHeadersWidth = 62;
             dataGridView1.Size = new Size(516, 523);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // Column1
             // 
@@ -131,7 +137,6 @@
             Margin = new Padding(2);
             Name = "Output";
             Text = "TradeSoft - Result";
-            Load += Output_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -143,6 +148,7 @@
         }
 
         #endregion
+
 
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn Column1;

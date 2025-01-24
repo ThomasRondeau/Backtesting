@@ -53,7 +53,7 @@ namespace ForexOrderExecutor
         {
             private Portfolio _portfolio;
             private OrderExecutor _orderExecutor;
-            private MovingAverageCrossoverStrategy _strategy;
+            private MovingAverageCrossover _strategy;
             private List<double> _dailyReturns = new List<double>();
             private double _initialCash;
             private double _highestValue;
@@ -63,7 +63,7 @@ namespace ForexOrderExecutor
                 _initialCash = initialCash;
                 _portfolio = new Portfolio(initialCash);
                 _orderExecutor = new OrderExecutor(_portfolio);
-                _strategy = new MovingAverageCrossoverStrategy();
+                _strategy = new MovingAverageCrossover();
                 _highestValue = initialCash;
             }
 

@@ -1,52 +1,43 @@
 using System;
 using System.Collections.Generic;
-using StrategyTradeSoft.Classes;
 
-namespace StrategyTradeSoft.Strategies
+namespace StrategyTradeSoft
 {
-    public partial class MovingAverageCrossoverStrategy : Strategy
+    public class MovingAverageCrossover : Strategy
     {
-        private Queue<float> shortWindow = new Queue<float>();
-        private Queue<float> longWindow = new Queue<float>();
-        private int shortPeriod = 5;
-        private int longPeriod = 20; 
+        private List<float> Prices = new List<float>();
+        private int ShortPeriod;
+        private int LongPeriod;
+        private float LastShortMA;
+        private float LastLongMA;
+
+        public MovingAverageCrossover(int shortPeriod, int longPeriod)
+        {
+            ShortPeriod = shortPeriod;
+            LongPeriod = longPeriod;
+        }
 
         public override void Next(Tick tick)
         {
-            shortWindow.Enqueue(tick.Price);
-            longWindow.Enqueue(tick.Price);
+            Prices.Add(tick.Price);
 
-            if (shortWindow.Count > shortPeriod) shortWindow.Dequeue();
-            if (longWindow.Count > longPeriod) longWindow.Dequeue();
-
-            if (shortWindow.Count == shortPeriod && longWindow.Count == longPeriod)
+            if (Prices.Count >= LongPeriod)
             {
-                var shortAvg = CalculateAverage(shortWindow);
-                var longAvg = CalculateAverage(longWindow);
+                float shortMA = Indicator.CalculateSMA(Prices, ShortPeriod);
+                float longMA = Indicator.CalculateSMA(Prices, LongPeriod);
 
-                
-                Console.WriteLine($"Tick Time: {tick.Time}, Short MA: {shortAvg:F5}, Long MA: {longAvg:F5}, Current Price: {tick.Price}");
-
-                
-                if (shortAvg > longAvg)
+                if (LastShortMA <= LastLongMA && shortMA > longMA)
                 {
-                    Console.WriteLine($"Buy signal at {tick.Time} - Price: {tick.Price}. Reason: Short MA ({shortAvg:F5}) > Long MA ({longAvg:F5})");
+                    Log($"Buy signal at {tick.Time} - Price: {tick.Price}");
                 }
-                else if (shortAvg < longAvg)
+                else if (LastShortMA >= LastLongMA && shortMA < longMA)
                 {
-                    Console.WriteLine($"Sell signal at {tick.Time} - Price: {tick.Price}. Reason: Short MA ({shortAvg:F5}) < Long MA ({longAvg:F5})");
+                    Log($"Sell signal at {tick.Time} - Price: {tick.Price}");
                 }
-            }
-        }
 
-        private float CalculateAverage(Queue<float> window)
-        {
-            float sum = 0;
-            foreach (var price in window)
-            {
-                sum += price;
+                LastShortMA = shortMA;
+                LastLongMA = longMA;
             }
-            return sum / window.Count;
         }
     }
 }

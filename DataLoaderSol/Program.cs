@@ -1,50 +1,37 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace TestAlpha
+namespace DataManagement
 {
     class Program
     {
         static async Task Main(string[] args)
         {
+            // Initialize the ForexDataLoader
+            var dataLoader = new ForexDataLoader(verbose: true);
+
             try
             {
-                // Define the path to the input CSV file
-                string csvPath = "../../../input.csv";
+                // Initialize the API key
+                dataLoader.Initialize("nfVWzVENmPlB9tXk06WS7TLF7GANhAHo"); // Alternatively, use dataLoader.Initialize("Your_API_Key");
 
-                // Ensure the CSV file exists
-                if (!File.Exists(csvPath))
-                {
-                    Console.WriteLine($"Error: The input CSV file was not found. Current path: {Directory.GetCurrentDirectory()}");
-                    throw new FileNotFoundException("The specified CSV file does not exist.", csvPath);
-                }
+                // Define forex pair and date range
+                string fromSymbol = "USD";
+                string toSymbol = "EUR";
+                DateTime startDate = new DateTime(2023, 1, 1);
+                DateTime endDate = new DateTime(2023, 12, 31);
 
-                // Prompt the user for start and end dates
-                Console.Write("Enter the start date (yyyy-MM-dd): ");
-                if (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime startDate))
-                {
-                    Console.WriteLine("Invalid start date. Please use the format yyyy-MM-dd.");
-                    return;
-                }
+                // Fetch forex data
+                Console.WriteLine("Fetching forex data...");
+                JObject forexData = await dataLoader.GetForexDataAsync(fromSymbol, toSymbol, startDate, endDate);
 
-                Console.Write("Enter the end date (yyyy-MM-dd): ");
-                if (!DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime endDate))
-                {
-                    Console.WriteLine("Invalid end date. Please use the format yyyy-MM-dd.");
-                    return;
-                }
+                // Save data to a CSV file
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "ForexData.csv");
+                dataLoader.SaveForexDataToCsv(forexData, filePath);
 
-                // Create an instance of the DataLoader
-                var dataLoader = new DataLoader();
-
-                // Process the CSV file
-                Console.WriteLine("Processing data from the CSV file...");
-                await dataLoader.LoadFromCsvAsync(csvPath, startDate, endDate);
-
-                Console.WriteLine("Data loading and saving completed.");
+                Console.WriteLine($"Forex data saved to {filePath}");
             }
             catch (Exception ex)
             {
