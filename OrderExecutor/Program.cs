@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using StrategyTradeSoft;
-using StrategyTradeSoft.Classes;
 using OrderExecutor.Classes;
 
-namespace ForexOrderExecutor
+namespace OrderExecutor.Classes
 {
     // Class OrderExecutor
     public class OrderExecutor
