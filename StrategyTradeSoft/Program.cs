@@ -8,20 +8,20 @@ class Program
 {
     static void Main(string[] args)
     {
-        // Move up from the executable directory to the solution directory and locate the temp folder
+        
         string solutionDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
-        string tempFolderPath = Path.Combine(solutionDirectory, "DataLoaderSol", "temp");
+        string tempFolderPath = @"C:\Users\marco\Documents\Project_Commando_C#\Backtesting Tradesoft\Backtesting\DataLoaderSol\temp";
+
 
         try
         {
-            // Verify if the directory exists
+            
             if (!Directory.Exists(tempFolderPath))
             {
                 Console.WriteLine($"The directory '{tempFolderPath}' does not exist.");
                 return;
             }
 
-            // List all CSV files in the "temp" folder
             var files = Directory.GetFiles(tempFolderPath, "*.csv").ToList();
 
             if (files.Count == 0)
@@ -30,7 +30,7 @@ class Program
                 return;
             }
 
-            // Display the list of files for the user to choose
+            
             Console.WriteLine("Available currency pairs:");
             for (int i = 0; i < files.Count; i++)
             {
@@ -44,17 +44,17 @@ class Program
                 return;
             }
 
-            // Get the selected file
+            
             string selectedFile = files[choice - 1];
             Console.WriteLine($"You selected: {Path.GetFileName(selectedFile)}");
 
-            // Load tick data from the selected file
+            
             var ticks = DataLoader.LoadTicks(selectedFile);
 
-            // Instantiate your strategy (adjust parameters as needed)
+            
             Strategy myStrategy = new MovingAverageCrossover(5, 20);
 
-            // Process each tick using the strategy
+            
             foreach (var tick in ticks)
             {
                 myStrategy.Next(tick);
