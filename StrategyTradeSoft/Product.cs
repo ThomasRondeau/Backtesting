@@ -7,6 +7,7 @@ namespace StrategyTradeSoft
     public class Product : IProduct
     {
         public int Id { get; private set; }
+        public string Name { get; private set; }
         public double Notional { get; set; } // Removed Investment, keeping Notional
         public List<Indicators> IndicatorsList { get; set; }
         public string CurrencyPair { get; set; }
@@ -38,9 +39,10 @@ namespace StrategyTradeSoft
             }
         }
 
-        public void RunStrategy()
+        public void RunStrategy(List<Tick> data)
         {
             Console.WriteLine($"Running strategy for {Name} with {Notional} in {CurrencyPair}");
+            ExecuteStrategy(data); 
         }
 
         private void Log(string message)

@@ -9,14 +9,15 @@ namespace IndicatorsApp.Indicators
         private int period;
         private IndicatorCache<double> gainsCache;
         private IndicatorCache<double> lossesCache;
-        public List<double> RSIValues { get; private set; } // Modifié pour être public
+        public List<double> Values { get; private set; }
+        public double LastValue { get; private set; }
 
         public RSI(int period)
         {
             this.period = period;
             gainsCache = new IndicatorCache<double>(period);
             lossesCache = new IndicatorCache<double>(period);
-            RSIValues = new List<double>();
+            Values = new List<double>();
         }
 
         public override void Calculate(List<double> data)
@@ -41,7 +42,8 @@ namespace IndicatorsApp.Indicators
                     double avgLoss = lossesCache.GetAll().Average();
                     double rs = avgGain / avgLoss;
                     double rsi = 100 - (100 / (1 + rs));
-                    RSIValues.Add(rsi);
+                    Values.Add(rsi);
+                    LastValue = rsi;
                 }
             }
         }
@@ -49,7 +51,7 @@ namespace IndicatorsApp.Indicators
         public override void Display()
         {
             Console.Write("RSI Values: ");
-            foreach (var rsi in RSIValues)
+            foreach (var rsi in Values)
             {
                 Console.Write(rsi + " ");
             }

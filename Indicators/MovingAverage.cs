@@ -8,13 +8,13 @@ namespace IndicatorsApp.Indicators
     {
         private int period;
         private IndicatorCache<double> cache;
-        public List<double> MovingAverages { get; private set; } // Modifié pour être public
-
+        public List<double> Values { get; private set; }
+        public double LastValue { get; private set; }
         public MovingAverage(int period)
         {
             this.period = period;
             cache = new IndicatorCache<double>(period);
-            MovingAverages = new List<double>();
+            Values = new List<double>();
         }
 
         public override void Calculate(List<double> data)
@@ -26,7 +26,8 @@ namespace IndicatorsApp.Indicators
                 {
                     double sum = cache.GetAll().Sum();
                     double ma = sum / period;
-                    MovingAverages.Add(ma);
+                    Values.Add(ma);
+                    LastValue = ma;
                 }
             }
         }
@@ -34,7 +35,7 @@ namespace IndicatorsApp.Indicators
         public override void Display()
         {
             Console.Write("Moving Averages: ");
-            foreach (var ma in MovingAverages)
+            foreach (var ma in Values)
             {
                 Console.Write(ma + " ");
             }

@@ -8,13 +8,14 @@ namespace IndicatorsApp.Indicators
     {
         private int period;
         private IndicatorCache<double> cache;
-        public List<double> ATRValues { get; private set; } // Modifié pour être public
+        public List<double> Values { get; private set; } // Modifié pour être public
+        public double LastValue { get; private set; }
 
         public ATR(int period)
         {
             this.period = period;
             cache = new IndicatorCache<double>(period);
-            ATRValues = new List<double>();
+            Values = new List<double>();
         }
 
         public override void Calculate(List<double> data)
@@ -29,7 +30,8 @@ namespace IndicatorsApp.Indicators
                     double lowClose = Math.Abs(cache.GetAll().First() - cache.GetAll().First());
                     double trueRange = Math.Max(highLow, Math.Max(highClose, lowClose));
                     double atr = cache.GetAll().Select(x => trueRange).Average();
-                    ATRValues.Add(atr);
+                    Values.Add(atr);
+                    LastValue = atr;
                 }
             }
         }
@@ -37,7 +39,7 @@ namespace IndicatorsApp.Indicators
         public override void Display()
         {
             Console.Write("ATR Values: ");
-            foreach (var atr in ATRValues)
+            foreach (var atr in Values)
             {
                 Console.Write(atr + " ");
             }

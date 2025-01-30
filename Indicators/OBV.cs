@@ -6,12 +6,13 @@ namespace IndicatorsApp.Indicators
     public class OBV : Indicators
     {
         private IndicatorCache<double> cache;
-        public List<double> OBVValues { get; private set; } // Modifié pour être public
+        public List<double> Values { get; private set; }
+        public double LastValue { get; private set; }
 
         public OBV()
         {
             cache = new IndicatorCache<double>(1);
-            OBVValues = new List<double>();
+            Values = new List<double>();
         }
 
         public override void Calculate(List<double> data)
@@ -29,14 +30,15 @@ namespace IndicatorsApp.Indicators
                     obv -= data[i];
                 }
 
-                OBVValues.Add(obv);
+                Values.Add(obv);
+                LastValue = obv;
             }
         }
 
         public override void Display()
         {
             Console.Write("OBV Values: ");
-            foreach (var obv in OBVValues)
+            foreach (var obv in Values)
             {
                 Console.Write(obv + " ");
             }
