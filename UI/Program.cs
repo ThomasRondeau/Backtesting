@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DataLoader;
 
 namespace UI
 {
@@ -25,6 +26,7 @@ namespace UI
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<MainForm>();
+                    services.AddSingleton<IDataService, DataLoader.>();
                 });
         }
     }

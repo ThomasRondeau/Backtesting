@@ -1,9 +1,6 @@
-using System;
-using System.Threading.Tasks;
-using DataLoader;
 using Newtonsoft.Json.Linq;
 
-namespace TestPolygon
+namespace DataLoader
 {
     public class DataService : IDataService
     {

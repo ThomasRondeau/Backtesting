@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataLoader\DataLoader.csproj" />
     <ProjectReference Include="..\Indicators\IndicatorsApp.csproj" />
   </ItemGroup>
 
