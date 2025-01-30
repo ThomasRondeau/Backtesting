@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 class Program
 {
-    static async Task TestDataLoader(string[] args)
+    static async Task Main(string[] args)
     {
         try
         {
