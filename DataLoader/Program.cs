@@ -18,7 +18,7 @@ class Program
             dataLoader.ResetXML();
 
             // Initialize API key (use your own or set it in environment variables)
-            dataLoader.Initialize("Op7aVxAltGZoKdjmiJaNzhrd9xeSZI6P");
+            dataLoader.InitializeFromEnvironment();
 
             // Define forex pair and date range
             string fromSymbol = "USD";
