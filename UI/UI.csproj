@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DataLoader\DataLoader.csproj" />
     <ProjectReference Include="..\Indicators\IndicatorsApp.csproj" />
+    <ProjectReference Include="..\OrderExecutor\OrderExecutor.csproj" />
     <ProjectReference Include="..\StrategyTradeSoft\StrategyTradeSoft.csproj" />
   </ItemGroup>
 

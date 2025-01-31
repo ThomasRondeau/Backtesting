@@ -11,7 +11,7 @@ namespace StrategyTradeSoft
         public List<Product> Products { get; private set; }
 
         public List<Tick> Data { get; private set; }
-        public OrderService orderService { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        //public OrderService orderService { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         public void RunPortfolio()
         {

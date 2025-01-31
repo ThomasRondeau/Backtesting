@@ -17,6 +17,7 @@
 		<PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
 		<ProjectReference Include="..\Indicators\IndicatorsApp.csproj" />
+		<ProjectReference Include="..\OrderExecutor\OrderExecutor.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -1,11 +1,4 @@
-﻿using OrderExecutor.Classes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OrderExecutor.Classes
+﻿namespace OrderExecutor.Classes
 {
     public partial class Portfolio
     {
