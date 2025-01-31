@@ -1,21 +1,23 @@
 ﻿using IndicatorsApp.Indicators;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+using Newtonsoft.Json.Linq;
 using System.Data;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace UI
 {
     public partial class StrategySelection : Page
     {
-        static List<Indicators> indicators = [];
-        static List<string> indicatorsName = [];
+        List<Indicators> indicators = [];
+        List<string> indicatorsName = [];
+
+        private CacheData data;
+        public override void BeforeLoad(object? loadData)
+        {
+            if (loadData is CacheData donnees)
+            {
+                data = donnees;
+            }
+        }
         public StrategySelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
@@ -44,13 +46,18 @@ namespace UI
             Label nameLabel = new Label() { Text = "Investment name", Location = new Point(10, 20) };
             TextBox nameTextBox = new TextBox() { Location = new Point(120, 20), Width = 200 };
 
+            Label productLabel = new Label() { Text = "Product", Location = new Point(10, 140) };
+            ComboBox productComboBox = new ComboBox() { Location = new Point(120, 140), Width = 200 };
+
+            productComboBox.Items.AddRange(new object[]{ "Currency", "Options", "Futures" });
+
             Label quantityLabel = new Label() { Text = "Notional", Location = new Point(10, 80) };
             NumericUpDown quantityNumeric = new NumericUpDown() { Location = new Point(120, 80), Width = 200 };
 
-            Label typeLabel = new Label() { Text = "Type de produit", Location = new Point(10, 140) };
-            ComboBox typeComboBox = new ComboBox() { Location = new Point(120, 140), Width = 200 };
+            Label indicatorLabel = new Label() { Text = "Indicateur", Location = new Point(10, 140) };
+            ComboBox indicatorComboBox = new ComboBox() { Location = new Point(120, 140), Width = 200 };
 
-            typeComboBox.Items.AddRange([.. indicatorsName]);
+            indicatorComboBox.Items.AddRange([.. indicatorsName]);
 
             Button deleteButton = new Button() { Text = "Supprimer", Location = new Point(10, 180), Width = 200, Height = 40 };
             deleteButton.Click += (s, e) => flowLayoutPanel1.Controls.Remove(productBlock);
@@ -59,8 +66,10 @@ namespace UI
             productBlock.Controls.Add(nameTextBox);
             productBlock.Controls.Add(quantityLabel);
             productBlock.Controls.Add(quantityNumeric);
-            productBlock.Controls.Add(typeLabel);
-            productBlock.Controls.Add(typeComboBox);
+            productBlock.Controls.Add(productLabel);
+            productBlock.Controls.Add(productComboBox);
+            productBlock.Controls.Add(indicatorLabel);
+            productBlock.Controls.Add(indicatorComboBox);
             productBlock.Controls.Add(deleteButton);
 
             flowLayoutPanel1.Controls.Add(productBlock);
@@ -68,9 +77,30 @@ namespace UI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            // Pass data to marco
+            foreach(GroupBox productBlock in flowLayoutPanel1.Controls)
+            {
+                TextBox nameTextBox = (TextBox)productBlock.Controls[1];
+                NumericUpDown quantityNumeric = (NumericUpDown)productBlock.Controls[3];
+                ComboBox typeComboBox = (ComboBox)productBlock.Controls[5];
+                JObject data = new JObject();
+                data["name"] = nameTextBox.Text;
+                data["quantity"] = quantityNumeric.Value;
+                data["type"] = typeComboBox.SelectedItem.ToString();
+                data["indicators"] = new JArray();
+                for (var j = 0; j < indicators.Count; j++)
+                {
+                    GroupBox indicatorBlock = (GroupBox)productBlock.Controls[j + 6];
+                    NumericUpDown indicatorValue = (NumericUpDown)indicatorBlock.Controls[1];
+                    JObject indicatorData = new JObject();
+                    indicatorData["name"] = indicators[j].Name;
+                    indicatorData["value"] = indicatorValue.Value;
+                    data["indicators"].Add(indicatorData);
+                }
+                data["data"] = this.data.data;
+                // Send data to the server
+            }   
             LoadingScreen loadPage = new LoadingScreen(Navigator);
-            Navigator.GoTo(loadPage);
+            Navigator.GoTo(loadPage, data);
         }
     }
 }
