@@ -27,5 +27,4 @@ namespace OrderExecutor.Classes
             Time = time;
         }
     }
-
 }

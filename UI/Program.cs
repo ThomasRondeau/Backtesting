@@ -26,6 +26,7 @@ namespace UI
                     services.AddSingleton<MainForm>();
                     services.AddSingleton<IDataService, DataService>();
                     services.AddSingleton<IStrategyExecutor, StrategyExecutor>();
+                    services.AddSingleton<IOrderService, OrderService>();
                 });
         }
     }

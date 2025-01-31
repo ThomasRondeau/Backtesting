@@ -36,7 +36,10 @@ namespace StrategyTradeSoft
                     indicator.Calculate(new List<double> { tick.Price });
             }
                 Log($"Processed tick at {tick.Time} with price {tick.Price}");
-        }
+            if (threeshlod passed)
+                    OrderService.Buy(Notional, CurrencyPair); / Sell //En fonction de la stratégie
+
+            }
         }
 
         public void RunStrategy(List<Tick> data)
