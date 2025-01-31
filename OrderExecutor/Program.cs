@@ -6,7 +6,7 @@ using OrderExecutor.Classes;
 namespace OrderExecutor.Classes
 {
     // Class OrderExecutor
-    public class OrderExecutor
+    /*public class OrderExecutor
     {
         private Portfolio _portfolio;
 
@@ -181,10 +181,37 @@ namespace OrderExecutor.Classes
             }
         }
 
-        public enum SignalType
+        // Extension de MovingAverageCrossoverStrategy
+        /*public partial class MovingAverageCrossoverStrategy
+        {
+            public bool HasSignal { get; private set; }
+            public SignalType Signal { get; private set; }
+
+            public void Next(Tick tick)
+            {
+                // ... (votre code existant)
+
+                if (shortAvg > longAvg && !HasSignal)
+                {
+                    HasSignal = true;
+                    Signal = SignalType.Buy;
+                }
+                else if (shortAvg < longAvg && HasSignal)
+                {
+                    HasSignal = true;
+                    Signal = SignalType.Sell;
+                }
+                else
+                {
+                    HasSignal = false;
+                }
+            }
+        }*/
+
+        /*public enum SignalType
         {
             Buy,
             Sell
-        }
+        }*/
     
 }
