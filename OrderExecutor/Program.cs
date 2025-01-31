@@ -6,7 +6,7 @@ using OrderExecutor.Classes;
 namespace OrderExecutor.Classes
 {
     // Class OrderExecutor
-    public class OrderExecutor
+    /*public class OrderExecutor
     {
         private Portfolio _portfolio;
 
@@ -208,10 +208,10 @@ namespace OrderExecutor.Classes
             }
         }*/
 
-        public enum SignalType
+        /*public enum SignalType
         {
             Buy,
             Sell
-        }
+        }*/
     
 }

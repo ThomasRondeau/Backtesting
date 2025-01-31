@@ -11,6 +11,8 @@ namespace OrderExecutor.Classes
     {
         private List<Position> _positions = new List<Position>();
         private double _cash;
+        public IReadOnlyList<Position> Positions => _positions;
+        public double Cash => _cash;
 
         public Portfolio(double initialCash)
         {
