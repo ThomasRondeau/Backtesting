@@ -24,10 +24,17 @@ namespace UI
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<MainForm>();
+                    services.AddSingleton<INavigator, MainForm>();
                     services.AddSingleton<IDataService, DataService>();
                     services.AddSingleton<IStrategyExecutor, StrategyExecutor>();
                     services.AddSingleton<IOrderService, OrderService>();
+
+                    services.AddTransient<MainForm>();
+
+                    services.AddTransient<DataSelection>();
+                    services.AddTransient<StrategySelection>();
+                    services.AddTransient<LoadingScreen>();
+                    services.AddTransient<Output>();
                 });
         }
     }

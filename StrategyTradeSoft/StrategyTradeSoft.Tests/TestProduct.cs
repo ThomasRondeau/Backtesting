@@ -45,7 +45,7 @@ namespace StrategyTradeSoft.Tests
 
             };
 
-			Assert.DoesNotThrow(() => _product.ExecuteStrategy(sampleData));
+			Assert.DoesNotThrow(() => _product.RunStrategy(sampleData));
 		}
 	}
 }
