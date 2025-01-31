@@ -1,4 +1,6 @@
-﻿namespace StrategyTradeSoft.Tests;
+﻿using NUnit.Framework;
+
+namespace StrategyTradeSoft.Tests;
 
 public class Tests
 {

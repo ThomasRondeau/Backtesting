@@ -34,9 +34,9 @@ namespace StrategyTradeSoft
                 foreach (var indicator in IndicatorsList)
                 {
                     indicator.Calculate(new List<double> { tick.Price });
-                }
-                Log($"Processed tick at {tick.Time} with price {tick.Price}");
             }
+                Log($"Processed tick at {tick.Time} with price {tick.Price}");
+        }
         }
 
         public void RunStrategy(List<Tick> data)
@@ -54,6 +54,11 @@ namespace StrategyTradeSoft
         public void SaveLogs(string filePath)
         {
             System.IO.File.WriteAllLines(filePath, LogMessages);
+        }
+
+        public void RunStrategy()
+        {
+            throw new NotImplementedException();
         }
     }
 }

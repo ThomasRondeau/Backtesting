@@ -2,20 +2,19 @@
 using System.IO;
 using System.Linq;
 using StrategyTradeSoft;
-
-
+using StrategyTradeSoft.Strategies;
+/*
 class Program
 {
     static void Main(string[] args)
     {
+        Console.WriteLine("Hello");
         
         string solutionDirectory = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
         string tempFolderPath = @"C:\Users\marco\Documents\Project_Commando_C#\Backtesting Tradesoft\Backtesting\DataLoaderSol\temp";
 
-
         try
         {
-            
             if (!Directory.Exists(tempFolderPath))
             {
                 Console.WriteLine($"The directory '{tempFolderPath}' does not exist.");
@@ -30,7 +29,6 @@ class Program
                 return;
             }
 
-            
             Console.WriteLine("Available currency pairs:");
             for (int i = 0; i < files.Count; i++)
             {
@@ -44,17 +42,13 @@ class Program
                 return;
             }
 
-            
             string selectedFile = files[choice - 1];
             Console.WriteLine($"You selected: {Path.GetFileName(selectedFile)}");
 
-            
             var ticks = DataLoader.LoadTicks(selectedFile);
 
-            
             Strategy myStrategy = new MovingAverageCrossover(5, 20);
 
-            
             foreach (var tick in ticks)
             {
                 myStrategy.Next(tick);
@@ -68,6 +62,7 @@ class Program
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
+        
     }
 }
-
+*/

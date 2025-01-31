@@ -17,7 +17,7 @@ namespace Backtesting.Tests
             ma.Calculate(data);
 
             // Assert
-            Assert.Equal(new List<double> { 12, 14, 16, 18, 20, 22, 24, 26 }, ma.MovingAverages);
+            Assert.Equal(new List<double> { 12, 14, 16, 18, 20, 22, 24, 26 }, ma.Values);
         }
     }
 }

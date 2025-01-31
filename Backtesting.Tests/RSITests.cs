@@ -17,7 +17,7 @@ namespace Backtesting.Tests
             rsi.Calculate(data);
 
             // Assert
-            Assert.Equal(new List<double> { 100, 100, 100, 100, 100, 100, 100 }, rsi.RSIValues);
+            Assert.Equal(new List<double> { 100, 100, 100, 100, 100, 100, 100 }, rsi.Values);
         }
     }
 }

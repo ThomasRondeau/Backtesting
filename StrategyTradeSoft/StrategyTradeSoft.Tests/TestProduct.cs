@@ -22,7 +22,7 @@ namespace StrategyTradeSoft.Tests
 			};
 
 			// Initialize a product
-			_product = new Product("EUR-USD", 100000, indicators, DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), DateOnly.FromDateTime(DateTime.Now));
+			_product = new Product(1, "Product", 100000, "EUR-USD", indicators, DateOnly.FromDateTime(DateTime.Now.AddDays(-30)), DateOnly.FromDateTime(DateTime.Now));
 		}
 
 		[Test]
@@ -39,10 +39,11 @@ namespace StrategyTradeSoft.Tests
 		{
 			var sampleData = new List<Tick>
 			{
-				new Tick { Time = DateTime.Now, Price = 1.105 },
-				new Tick { Time = DateTime.Now.AddMinutes(1), Price = 1.107 },
-				new Tick { Time = DateTime.Now.AddMinutes(2), Price = 1.110 }
-			};
+				new Tick(DateTime.Now, "EUR-USD", 1000, 1.105),
+                new Tick( DateTime.Now.AddMinutes(1), "EUR-USD", 1000, 1.107 ),
+                new Tick( DateTime.Now.AddMinutes(2), "EUR-USD", 1000, 1.110 ),
+
+            };
 
 			Assert.DoesNotThrow(() => _product.ExecuteStrategy(sampleData));
 		}

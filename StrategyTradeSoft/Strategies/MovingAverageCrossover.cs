@@ -25,12 +25,12 @@ namespace StrategyTradeSoft.Strategies
             ShortMA.Calculate(Prices);
             LongMA.Calculate(Prices);
 
-            if (ShortMA.MovingAverages.Count > 1 && LongMA.MovingAverages.Count > 1)
+            if (ShortMA.Values.Count > 1 && LongMA.Values.Count > 1)
             {
-                double lastShortMA = ShortMA.MovingAverages[^1];
-                double lastLongMA = LongMA.MovingAverages[^1];
-                double prevShortMA = ShortMA.MovingAverages[^2];
-                double prevLongMA = LongMA.MovingAverages[^2];
+                double lastShortMA = ShortMA.Values[^1];
+                double lastLongMA = LongMA.Values[^1];
+                double prevShortMA = ShortMA.Values[^2];
+                double prevLongMA = LongMA.Values[^2];
 
                 if (prevShortMA <= prevLongMA && lastShortMA > lastLongMA)
                 {
