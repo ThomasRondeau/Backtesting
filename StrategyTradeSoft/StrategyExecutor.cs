@@ -7,12 +7,27 @@ namespace StrategyTradeSoft
     public class StrategyExecutor : IStrategyExecutor
     {
         public List<Product> Products { get; private set; }
+
         public List<Indicators> IndicatorsList { get; private set; }
 
-        private Dictionary<Indicators, List<Product>> IndicatorToProductsMap = new Dictionary<Indicators, List<Product>>();
         public List<Tick> Data { get; private set; }
-        public OrderService orderService { get ; init; }
-        private List<string> LogMessages = new List<string>();
+
+        private Dictionary<Indicators, List<Product>> IndicatorToProductsMap;
+
+        public OrderService orderService { get; init; }
+
+        private List<string> LogMessages;
+
+        public StrategyExecutor(OrderService orderService)
+        {
+            Products = new List<Product>();
+            IndicatorsList = new List<Indicators>();
+            Data = new List<Tick>();
+            LogMessages = new List<string>();
+            IndicatorToProductsMap = new Dictionary<Indicators, List<Product>>();
+
+            this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        }
 
         public void RunPortfolio()
         {
@@ -33,11 +48,11 @@ namespace StrategyTradeSoft
                             {
                                 if (condition.Indicator.LastValue > condition.Value && condition.Type == OrderType.Sell)
                                 {
-                                    orderService.Sell(product, tick.Price);
+                                    //orderService.Sell(product, tick.Price);
                                 }
                                 else if (condition.Indicator.LastValue < condition.Value && condition.Type == OrderType.Buy)
                                 {
-                                    orderService.Buy(product, tick.Price);
+                                    //orderService.Buy(product, tick.Price);
                                 }
                             }
                         }

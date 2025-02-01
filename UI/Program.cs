@@ -6,15 +6,19 @@ using OrderExecutor.Classes;
 
 namespace UI
 {
-    internal static class Program
+    public static class Program
     {
+        public static IServiceProvider services;
+
         [STAThread]
         static void Main()
         {
-            var host = CreateHostBuilder().Build();
-            var services = host.Services;
-
+            Application.EnableVisualStyles();
             ApplicationConfiguration.Initialize();
+
+            var host = CreateHostBuilder().Build();
+            services = host.Services;
+
             var mainForm = services.GetRequiredService<MainForm>();
             Application.Run(mainForm);
         }
@@ -24,13 +28,16 @@ namespace UI
             return Host.CreateDefaultBuilder()
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<INavigator, MainForm>();
+                    services.AddSingleton<MainForm>();
+                    services.AddSingleton<INavigator>(sp => sp.GetRequiredService<MainForm>());
+
+                    // Services
                     services.AddSingleton<IDataService, DataService>();
                     services.AddSingleton<IStrategyExecutor, StrategyExecutor>();
                     services.AddSingleton<IOrderService, OrderService>();
 
-                    services.AddTransient<MainForm>();
-
+                    // Pages
+                    services.AddTransient<Welcome>();
                     services.AddTransient<DataSelection>();
                     services.AddTransient<StrategySelection>();
                     services.AddTransient<LoadingScreen>();

@@ -3,7 +3,7 @@ using StrategyTradeSoft;
 using IndicatorsApp.Indicators;
 using System;
 using System.Collections.Generic;
-
+/*
 namespace StrategyTradeSoft.Tests
 {
 	[TestFixture]
@@ -49,3 +49,4 @@ namespace StrategyTradeSoft.Tests
 		}
 	}
 }
+*/

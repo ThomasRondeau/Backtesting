@@ -1,4 +1,7 @@
-﻿namespace UI
+﻿using Microsoft.Extensions.DependencyInjection;
+using ScottPlot.Statistics;
+
+namespace UI
 {
     public class MainForm : Form, INavigator
     {
@@ -14,7 +17,7 @@
             };
             Controls.Add(hostPanel);
 
-            Welcome welcomePage = new Welcome(this);
+            Welcome welcomePage = new Welcome(this);//Program.services.GetRequiredService<Welcome>();
             GoTo(welcomePage);
         }
 

@@ -1,14 +1,6 @@
 ﻿using DataLoader;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace UI
 {
@@ -28,7 +20,7 @@ namespace UI
         
         private void button1_Click(object sender, EventArgs e)
         {
-            StrategySelection stratPage = new StrategySelection(Navigator);
+            StrategySelection stratPage = Program.services.GetRequiredService<StrategySelection>(); ;
             Navigator.GoTo(stratPage, new CacheData(data: getData()));
         }
     }

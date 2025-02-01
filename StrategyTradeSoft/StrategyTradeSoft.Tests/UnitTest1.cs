@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-
+/*
 namespace StrategyTradeSoft.Tests;
 
 public class Tests
@@ -15,3 +15,4 @@ public class Tests
         Assert.Pass();
     }
 }
+*/

@@ -1,4 +1,5 @@
 ﻿using IndicatorsApp.Indicators;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Reflection;
@@ -92,14 +93,14 @@ namespace UI
                     GroupBox indicatorBlock = (GroupBox)productBlock.Controls[j + 6];
                     NumericUpDown indicatorValue = (NumericUpDown)indicatorBlock.Controls[1];
                     JObject indicatorData = new JObject();
-                    indicatorData["name"] = indicators[j].Name;
+                    indicatorData["name"] = indicators[j].GetType().Name;
                     indicatorData["value"] = indicatorValue.Value;
-                    data["indicators"].Add(indicatorData);
+                    data["indicators"].AddAfterSelf(indicatorData);
                 }
                 data["data"] = this.data.data;
                 // Send data to the server
             }   
-            LoadingScreen loadPage = new LoadingScreen(Navigator);
+            LoadingScreen loadPage = Program.services.GetRequiredService<LoadingScreen>(); ;
             Navigator.GoTo(loadPage, data);
         }
     }

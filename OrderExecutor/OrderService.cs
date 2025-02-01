@@ -11,6 +11,18 @@
             _orderExecutor = new OrderExecutor(_portfolio);
         }
 
+        public void Buy(double price, int quantity, DateTime time)
+        {
+            Order order = CreateOrder(OrderType.Buy, price, quantity, time);
+            ExecuteOrder(order);
+        }
+
+        public void Sell(double price, int quantity, DateTime time)
+        {
+            Order order = CreateOrder(OrderType.Sell, price, quantity, time);
+            ExecuteOrder(order);
+        }
+
         public Order CreateOrder(OrderType type, double price, int quantity, DateTime time)
         {
             return new Order(type, price, quantity, time);
