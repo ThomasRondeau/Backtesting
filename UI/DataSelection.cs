@@ -13,15 +13,18 @@ namespace UI
             _dataService = dataService;
         }
 
-        public JObject getData()
+        public async Task<JObject> getDataAsync(string fromCurrency, string toCurrency, DateTime fromDate, DateTime toDate)
         {
-            return _dataService.FetchForexDataAsync("USD", "JPY", DateTime.Now.AddDays(-7), DateTime.Now).Result;
+            return await _dataService.FetchForexDataAsync(fromCurrency, toCurrency, fromDate, toDate);
         }
-        
-        private void button1_Click(object sender, EventArgs e)
+
+        private async void button1_Click(object sender, EventArgs e)
         {
-            StrategySelection stratPage = Program.services.GetRequiredService<StrategySelection>(); ;
-            Navigator.GoTo(stratPage, new CacheData(data: getData()));
+            // Recup parameters
+            var data = await getDataAsync();
+            Console.WriteLine(data);
+            StrategySelection stratPage = Program.services.GetRequiredService<StrategySelection>();
+            Navigator.GoTo(stratPage, new CacheData(data: data));
         }
     }
 }
