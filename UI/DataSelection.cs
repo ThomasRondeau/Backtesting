@@ -15,7 +15,7 @@ namespace UI
 
         public JObject getData()
         {
-            return _dataService.FetchForexDataAsync("USD", "JPY", DateTime.Now.AddDays(-7), DateTime.Now).Result; // Modif les inputs
+            return _dataService.FetchForexDataAsync("USD", "JPY", DateTime.Now.AddDays(-7), DateTime.Now).Result;
         }
         
         private void button1_Click(object sender, EventArgs e)

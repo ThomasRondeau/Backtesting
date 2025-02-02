@@ -32,7 +32,7 @@ namespace UI
                     services.AddSingleton<INavigator>(sp => sp.GetRequiredService<MainForm>());
 
                     // Services
-                    services.AddSingleton<IDataService, DataService>();
+                    services.AddSingleton<IDataService>(provider => new DataService(true));
                     services.AddSingleton<IStrategyExecutor, StrategyExecutor>();
                     services.AddSingleton<IOrderService, OrderService>();
 
