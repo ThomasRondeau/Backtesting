@@ -61,7 +61,7 @@ namespace StrategyTradeSoft
 
                 foreach (var indicator in IndicatorsList)
                 {
-                    if (IndicatorToProductsMap.TryGetValue(indicator, out var relatedProducts))
+                    if (IndicatorToProductsMap.TryGetValue(indicator, out List<Product>? relatedProducts) && relatedProducts != null)
                     {
                         foreach (var product in relatedProducts)
                         {
@@ -69,11 +69,11 @@ namespace StrategyTradeSoft
                             {
                                 if (condition.Indicator.LastValue > condition.Value && condition.Type == OrderType.Sell)
                                 {
-                                    orderService.Sell(tick.Price, (int)product.Notional, tick.Time);
+                                    orderService.Sell(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
                                 }
                                 else if (condition.Indicator.LastValue < condition.Value && condition.Type == OrderType.Buy)
                                 {
-                                    orderService.Buy(tick.Price, (int)product.Notional, tick.Time);
+                                    orderService.Buy(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
                                 }
                             }
                         }

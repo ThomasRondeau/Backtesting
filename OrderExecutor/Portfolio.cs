@@ -2,14 +2,11 @@
 {
     public partial class Portfolio
     {
-        private List<Position> _positions = new List<Position>();
-        private double _cash;
+        public List<Position> _positions = new List<Position>();
         public IReadOnlyList<Position> Positions => _positions;
-        public double Cash => _cash;
 
-        public Portfolio(double initialCash)
+        public Portfolio()
         {
-            _cash = initialCash;
         }
 
         public void ExecuteOrder(Order order)
@@ -27,16 +24,8 @@
         private void OpenPosition(Order order)
         {
             double cost = order.Price * order.Quantity;
-            if (_cash >= cost)
-            {
-                _positions.Add(new Position(OrderType.Buy, order.Price, order.Quantity, order.Time));
-                _cash -= cost;
-                Console.WriteLine($"Opened BUY position: {order.Quantity} units at {order.Price}, remaining cash: {_cash:F2}");
-            }
-            else
-            {
-                Console.WriteLine("Insufficient funds to open position.");
-            }
+            _positions.Add(new Position(OrderType.Buy, order.Price, order.Quantity, order.Time));
+            Console.WriteLine($"Opened BUY position: {order.Quantity} units at {order.Price}");
         }
 
         private void ClosePosition(Order order)
@@ -46,8 +35,7 @@
                 if (position.Type == OrderType.Buy && !position.ExitPrice.HasValue)
                 {
                     position.Close(order.Price, order.Time);
-                    _cash += order.Price * position.Quantity;
-                    Console.WriteLine($"Closed BUY position at {order.Price}, P&L: {position.ProfitLoss:F2}, total cash: {_cash:F2}");
+                    Console.WriteLine($"Closed BUY position at {order.Price}, P&L: {position.ProfitLoss:F2}");
                     break;
                 }
             }
@@ -56,7 +44,6 @@
         public void PrintPortfolioSummary()
         {
             Console.WriteLine("\nPortfolio Summary:");
-            Console.WriteLine($"Cash: {_cash:F2}");
             foreach (var position in _positions)
             {
                 string status = position.ExitPrice.HasValue ? "Closed" : "Open";

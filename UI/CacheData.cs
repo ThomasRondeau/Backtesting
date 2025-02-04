@@ -3,7 +3,7 @@ using StrategyTradeSoft;
 
 namespace UI
 {
-    record CacheData
+    struct CacheData
     {
         public JObject data { get; init; }
         public List<Product> products { get; init; }

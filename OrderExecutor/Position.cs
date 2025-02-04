@@ -3,8 +3,8 @@
     public class Position
     {
         public OrderType Type { get; private set; }
-        public double EntryPrice { get; private set; }
         public int Quantity { get; private set; }
+        public double EntryPrice { get; private set; }
         public DateTime EntryTime { get; private set; }
         public double? ExitPrice { get; private set; }
         public DateTime? ExitTime { get; private set; }

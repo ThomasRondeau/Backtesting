@@ -2,24 +2,10 @@
 {
     public interface IOrderService
     {
-        // Create new order
-        Order CreateOrder(OrderType type, double price, int quantity, DateTime time);
-
-        void ExecuteOrder(Order order);
-
-        void GetPortfolioSummary();
-
-        IEnumerable<Position> GetOpenPositions();
-
         IEnumerable<Position> GetAllPositions();
 
-        void Buy(double price, int quantity, DateTime time);
+        void Buy(int productId, string productName, double price, int quantity, DateTime time);
 
-        void Sell(double price, int quantity, DateTime time);
-
-        double GetAvailableCash();
-
-        // Verify if we have enough cash to execute order
-        bool CanExecuteOrder(Order order);
+        void Sell(int productId, string productName, double price, int quantity, DateTime time);
     }
 }
