@@ -1,4 +1,6 @@
-﻿namespace UI
+﻿using System.Windows.Forms;
+
+namespace UI
 {
     partial class LoadingScreen
     {
@@ -30,8 +32,28 @@
         {
             components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+
+            button1 = new Button();
+            button1.Location = new Point(500, 500);
+            button1.Name = "button1";
+            button1.Size = new Size(111, 90);
+            button1.TabIndex = 1;
+            button1.Text = "Run simulation";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1643, 947);
+            Controls.Add(button1);
+            Name = "Input";
+            Text = "TradeSoft - Strategy definition";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button button1;
     }
 }

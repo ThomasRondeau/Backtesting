@@ -13,6 +13,10 @@
 
         IEnumerable<Position> GetAllPositions();
 
+        void Buy(double price, int quantity, DateTime time);
+
+        void Sell(double price, int quantity, DateTime time);
+
         double GetAvailableCash();
 
         // Verify if we have enough cash to execute order

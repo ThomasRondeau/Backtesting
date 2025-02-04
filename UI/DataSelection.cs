@@ -7,10 +7,10 @@ namespace UI
     public partial class DataSelection : Page
     {
         private readonly IDataService _dataService;
-        public DataSelection(INavigator navigator, IDataService dataService) : base(navigator)
+        public DataSelection(INavigator navigator) : base(navigator)
         {
             InitializeComponent();
-            _dataService = dataService;
+            _dataService = Program.services.GetRequiredService<IDataService>();
         }
 
         public async Task<JObject> getDataAsync(string fromCurrency, string toCurrency, DateTime fromDate, DateTime toDate)
@@ -20,8 +20,8 @@ namespace UI
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            // Recup parameters
-            var data = await getDataAsync();
+            string[] currencies = comboBox1.SelectedItem.ToString().Split("-");
+            var data = await getDataAsync(currencies[0], currencies[1], dateTimePicker1.Value, dateTimePicker2.Value);
             Console.WriteLine(data);
             StrategySelection stratPage = Program.services.GetRequiredService<StrategySelection>();
             Navigator.GoTo(stratPage, new CacheData(data: data));

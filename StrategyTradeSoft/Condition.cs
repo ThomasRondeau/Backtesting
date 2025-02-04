@@ -3,10 +3,17 @@ using OrderExecutor.Classes;
 
 namespace StrategyTradeSoft
 {
-    public class Condition
+    public readonly struct Condition
     {
-        public Indicators Indicator { get; set; }
-        public OrderType Type { get; set; }
-        public double Value { get; set; }
+        public Indicators Indicator { get; }
+        public OrderType Type { get; }
+        public double Value { get; }
+
+        public Condition(Indicators indicator, OrderType type, double value)
+        {
+            Indicator = indicator;
+            Type = type;
+            Value = value;
+        }
     }
 }

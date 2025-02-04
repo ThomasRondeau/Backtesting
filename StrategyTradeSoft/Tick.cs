@@ -4,13 +4,11 @@ namespace StrategyTradeSoft
     {
         public DateTime Time { get; set; }
         public double Price { get; set; }
-        public string Symbol { get; set; }
         public int Volume { get; set; }
 
-        public Tick(DateTime time, string symbol, int volume, double price)
+        public Tick(DateTime time, int volume, double price)
         {
             Time = time;
-            Symbol = symbol;
             Volume = volume;
             Price = price;
         }

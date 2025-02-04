@@ -5,9 +5,9 @@
         private readonly Portfolio _portfolio;
         private readonly OrderExecutor _orderExecutor;
 
-        public OrderService(double initialCash)
+        public OrderService()
         {
-            _portfolio = new Portfolio(initialCash);
+            _portfolio = new Portfolio(10000000);
             _orderExecutor = new OrderExecutor(_portfolio);
         }
 
@@ -30,14 +30,7 @@
 
         public void ExecuteOrder(Order order)
         {
-            if (CanExecuteOrder(order))
-            {
-                _orderExecutor.ProcessOrder(order);
-            }
-            else
-            {
-                throw new InvalidOperationException("L'ordre ne peut pas être exécuté en raison de fonds insuffisants ou de conditions non remplies.");
-            }
+            _orderExecutor.ProcessOrder(order);
         }
         public void GetPortfolioSummary()
         {

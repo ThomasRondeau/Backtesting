@@ -1,10 +1,13 @@
-﻿using OrderExecutor.Classes;
+﻿using Newtonsoft.Json.Linq;
+using OrderExecutor.Classes;
 
 namespace StrategyTradeSoft
 {
     public interface IStrategyExecutor
     {
-        OrderService orderService { get; init; }
+        IOrderService orderService { get; init; }
+
+        public void addData(JObject jsonData);
         public void RunPortfolio() { }
         public void AddProduct(Product product) { }
 

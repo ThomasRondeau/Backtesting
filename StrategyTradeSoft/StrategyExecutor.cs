@@ -1,5 +1,7 @@
 ﻿using IndicatorsApp.Indicators;
+using Newtonsoft.Json.Linq;
 using OrderExecutor.Classes;
+using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StrategyTradeSoft
@@ -14,11 +16,11 @@ namespace StrategyTradeSoft
 
         private Dictionary<Indicators, List<Product>> IndicatorToProductsMap;
 
-        public OrderService orderService { get; init; }
+        public IOrderService orderService { get; init; }
 
         private List<string> LogMessages;
 
-        public StrategyExecutor(OrderService orderService)
+        public StrategyExecutor(IOrderService orderService)
         {
             Products = new List<Product>();
             IndicatorsList = new List<Indicators>();
@@ -27,6 +29,25 @@ namespace StrategyTradeSoft
             IndicatorToProductsMap = new Dictionary<Indicators, List<Product>>();
 
             this.orderService = orderService ?? throw new ArgumentNullException(nameof(orderService));
+        }
+
+        public void addData(JObject jsonData)
+        {
+
+            foreach (var result in jsonData["results"])
+            {
+                var datetime = DateTimeOffset.FromUnixTimeMilliseconds((long)result["t"]).DateTime;
+                double close = (double)result["c"];
+                int volume = (int)result["v"];
+
+                var tick = new Tick(
+                    time: datetime,
+                    volume: volume,
+                    price: close
+                );
+
+                Data.Add(tick);
+            }
         }
 
         public void RunPortfolio()
@@ -48,11 +69,11 @@ namespace StrategyTradeSoft
                             {
                                 if (condition.Indicator.LastValue > condition.Value && condition.Type == OrderType.Sell)
                                 {
-                                    //orderService.Sell(product, tick.Price);
+                                    orderService.Sell(tick.Price, (int)product.Notional, tick.Time);
                                 }
                                 else if (condition.Indicator.LastValue < condition.Value && condition.Type == OrderType.Buy)
                                 {
-                                    //orderService.Buy(product, tick.Price);
+                                    orderService.Buy(tick.Price, (int)product.Notional, tick.Time);
                                 }
                             }
                         }

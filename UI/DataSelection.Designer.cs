@@ -107,6 +107,10 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] {
+            "EUR-USD",
+            "USD-EUR",
+            "YEN-USD"});
             comboBox1.Location = new Point(171, 457);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(182, 33);

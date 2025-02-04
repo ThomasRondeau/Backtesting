@@ -6,23 +6,19 @@ namespace StrategyTradeSoft
 {
     public class Product
     {
+        private static int IdCounter = 0;
         public int Id { get; private set; }
         public string Name { get; private set; }
         public double Notional { get; set; }
         public List<Condition> Conditions { get; set; }
-        public string CurrencyPair { get; set; }
-        public DateOnly StartDate { get; private set; }
-        public DateOnly EndDate { get; private set; }
-        
+        public string CurrencyPair { get; set; }        
 
-        public Product(int id, string name, double notional, List<Condition> conditions, DateOnly startDate, DateOnly endDate)
+        public Product(string name, double notional, List<Condition> conditions)
         {
-            Id = id;
+            Id = IdCounter++;
             Name = name;
             Notional = notional;
             Conditions = conditions;
-            StartDate = startDate;
-            EndDate = endDate;
         }
     }
 }
