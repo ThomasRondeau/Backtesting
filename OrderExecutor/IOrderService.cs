@@ -7,5 +7,7 @@
         void Buy(int productId, string productName, double price, int quantity, DateTime time);
 
         void Sell(int productId, string productName, double price, int quantity, DateTime time);
+
+        Portfolio GetPortfolio();
     }
 }

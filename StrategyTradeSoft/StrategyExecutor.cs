@@ -102,6 +102,17 @@ namespace StrategyTradeSoft
             }
         }
 
+        public Portfolio GetPortfolio()
+        {
+            return orderService.GetPortfolio();
+        }
+
+        public List<Indicators> GetIndicators()
+        {
+            return IndicatorsList;
+        }
+
+
         private void Log(string message)
         {
             LogMessages.Add($"{DateTime.Now}: {message}");

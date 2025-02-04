@@ -1,10 +1,11 @@
 ﻿namespace OrderExecutor.Classes
 {
-    public partial class Portfolio
+    public class Portfolio
     {
         public List<Position> _positions = new List<Position>();
         public IReadOnlyList<Position> Positions => _positions;
 
+        public List<double> PortfolioProfitLoss = new List<double>();
         public Portfolio()
         {
         }
@@ -39,6 +40,17 @@
                     break;
                 }
             }
+        }
+
+        public void UpdateProfitLoss(double price)
+        {
+            double temp = 0;
+            foreach(var position in _positions)
+            {
+                UpdateProfitLoss(price);
+                temp += position.ProfitLoss.Last();
+            }
+            PortfolioProfitLoss.Add(temp);
         }
 
         public void PrintPortfolioSummary()

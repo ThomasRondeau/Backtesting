@@ -25,5 +25,10 @@
         {
             return _portfolio._positions;
         }
+
+        public Portfolio GetPortfolio()
+        {
+            return _portfolio;
+        }
     }
 }

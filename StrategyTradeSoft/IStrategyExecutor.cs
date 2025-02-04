@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using IndicatorsApp.Indicators;
+using Newtonsoft.Json.Linq;
 using OrderExecutor.Classes;
 
 namespace StrategyTradeSoft
@@ -10,6 +11,10 @@ namespace StrategyTradeSoft
         public void addData(JObject jsonData);
         public void RunPortfolio() { }
         public void AddProduct(Product product) { }
+
+        public Portfolio GetPortfolio();
+
+        public List<Indicators> GetIndicators();
 
     }
 }

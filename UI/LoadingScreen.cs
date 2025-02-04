@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IndicatorsApp.Indicators;
+using Microsoft.Extensions.DependencyInjection;
 using StrategyTradeSoft;
 
 namespace UI
@@ -27,7 +28,7 @@ namespace UI
         {
             RunSimulation();
             Output outputPage = Program.services.GetRequiredService<Output>();
-            Navigator.GoTo(outputPage); //TODO : Passer les données de simulation à la page de sortie
+            Navigator.GoTo(outputPage, new OutputData(data.data, _stategyService.GetIndicators(), _stategyService.GetPortfolio()));
         }
 
         private void RunSimulation()

@@ -8,13 +8,13 @@ namespace UI
     {
         public JObject data { get; init; }
         public List<Indicators> indicators { get; init; }
-        public List<Order> orders { get; init; }
+        public Portfolio Portfolio { get; init; }
 
-        public OutputData(JObject data = null, List<Indicators> indicators = null, List<Order> orders = null)
+        public OutputData(JObject data = null, List<Indicators> indicators = null, Portfolio portfolio = null)
         {
             this.data = data ?? new JObject();
             this.indicators = indicators ?? new List<Indicators>();
-            this.orders = orders ?? new List<Order>();
+            Portfolio = portfolio ?? new Portfolio();
         }
     }
 }

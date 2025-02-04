@@ -9,9 +9,7 @@
         public double? ExitPrice { get; private set; }
         public DateTime? ExitTime { get; private set; }
 
-        public double ProfitLoss => ExitPrice.HasValue
-            ? (ExitPrice.Value - EntryPrice) * Quantity * (Type == OrderType.Buy ? 1 : -1)
-            : 0;
+        public List<double> ProfitLoss { get; private set; }
 
         public Position(OrderType type, double entryPrice, int quantity, DateTime entryTime)
         {
@@ -25,6 +23,18 @@
         {
             ExitPrice = exitPrice;
             ExitTime = exitTime;
+        }
+
+        public void UpdatePNL(double price)
+        {
+            if (Type == OrderType.Buy)
+            {
+                ProfitLoss.Add((price - EntryPrice) * Quantity);
+            }
+            else
+            {
+                ProfitLoss.Add((EntryPrice - price) * Quantity);
+            }
         }
     }
 }
