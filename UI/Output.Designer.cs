@@ -39,6 +39,9 @@ namespace UI
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
+            Column6 = new DataGridViewTextBoxColumn();
             panel1 = new Panel();
             label1 = new Label();
             splitContainer1 = new SplitContainer();
@@ -55,7 +58,7 @@ namespace UI
             // 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6 });
             dataGridView1.Location = new Point(0, 2);
             dataGridView1.Margin = new Padding(2);
             dataGridView1.Name = "dataGridView1";
@@ -65,21 +68,39 @@ namespace UI
             // 
             // Column1
             // 
-            Column1.HeaderText = "Column1";
+            Column1.HeaderText = "Product Id";
             Column1.MinimumWidth = 8;
             Column1.Name = "Column1";
             // 
             // Column2
             // 
-            Column2.HeaderText = "Column2";
+            Column2.HeaderText = "Entry price";
             Column2.MinimumWidth = 8;
             Column2.Name = "Column2";
             // 
             // Column3
             // 
-            Column3.HeaderText = "Column3";
+            Column3.HeaderText = "Entry DateTime";
             Column3.MinimumWidth = 8;
             Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            Column4.HeaderText = "Exit Price";
+            Column4.MinimumWidth = 8;
+            Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            Column5.HeaderText = "Exit DateTime";
+            Column5.MinimumWidth = 8;
+            Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            Column6.HeaderText = "PNl";
+            Column6.MinimumWidth = 8;
+            Column6.Name = "Column6";
             // 
             // panel1
             // 
@@ -154,6 +175,9 @@ namespace UI
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column5;
+        private DataGridViewTextBoxColumn Column6;
         private Panel panel1;
         private Label label1;
         private SplitContainer splitContainer1;

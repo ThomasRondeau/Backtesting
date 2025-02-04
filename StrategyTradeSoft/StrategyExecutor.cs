@@ -79,7 +79,7 @@ namespace StrategyTradeSoft
                         }
                     }
                 }
-
+                orderService.UpdatePNL(tick.Price); // To recalculate the PNL for each position plus the global portfolio PNL
                 Log($"Processed tick at {tick.Time} with price {tick.Price}");
             }
         }

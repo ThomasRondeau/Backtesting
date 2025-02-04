@@ -2,17 +2,21 @@
 {
     public class Position
     {
+        private static int _id = 0;
+        public int Id { get; init; }
+        public int ProductId { get; private set; }
         public OrderType Type { get; private set; }
         public int Quantity { get; private set; }
         public double EntryPrice { get; private set; }
         public DateTime EntryTime { get; private set; }
         public double? ExitPrice { get; private set; }
         public DateTime? ExitTime { get; private set; }
-
         public List<double> ProfitLoss { get; private set; }
 
-        public Position(OrderType type, double entryPrice, int quantity, DateTime entryTime)
+        public Position(int productId, OrderType type, double entryPrice, int quantity, DateTime entryTime)
         {
+            Id = _id++;
+            ProductId = productId;
             Type = type;
             EntryPrice = entryPrice;
             Quantity = quantity;

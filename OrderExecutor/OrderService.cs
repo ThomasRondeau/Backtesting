@@ -30,5 +30,10 @@
         {
             return _portfolio;
         }
+
+        public void UpdatePNL(double price)
+        {
+            _portfolio.UpdateProfitLoss(price);
+        }
     }
 }

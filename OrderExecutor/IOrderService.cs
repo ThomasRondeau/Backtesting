@@ -9,5 +9,7 @@
         void Sell(int productId, string productName, double price, int quantity, DateTime time);
 
         Portfolio GetPortfolio();
+
+        void UpdatePNL(double price);
     }
 }
