@@ -128,10 +128,10 @@ namespace UI
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Arial Black", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(44, 350); // Position juste en dessous du formsPlot1
             label2.Name = "label2";
-            label2.Size = new Size(200, 25);
+            label2.Size = new Size(200, 200);
             label2.TabIndex = 2;
             label2.Text = "Votre texte ici";
             // 

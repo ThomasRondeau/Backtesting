@@ -8,8 +8,6 @@ namespace IndicatorsApp.Indicators
     {
         private int period;
         private IndicatorCache<double> cache;
-        public List<double> Values { get; private set; } // Modifié pour être public
-        public double LastValue { get; private set; }
 
         public ATR(int period)
         {

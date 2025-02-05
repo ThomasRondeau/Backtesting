@@ -6,8 +6,6 @@ namespace IndicatorsApp.Indicators
     public class OBV : Indicators
     {
         private IndicatorCache<double> cache;
-        public List<double> Values { get; private set; }
-        public double LastValue { get; private set; }
 
         public OBV()
         {

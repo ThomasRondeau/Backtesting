@@ -9,8 +9,6 @@ namespace IndicatorsApp.Indicators
         private int period;
         private IndicatorCache<double> gainsCache;
         private IndicatorCache<double> lossesCache;
-        public List<double> Values { get; private set; }
-        public double LastValue { get; private set; }
 
         public RSI(int period)
         {
