@@ -266,6 +266,7 @@ namespace DataLoader
 
         public async Task<JObject> FetchForexData(string fromSymbol, string toSymbol, DateTime startDate, DateTime endDate)
         {
+            /*
             // Try to fetch data from XML
             var data = FetchForexDataFromXml(fromSymbol, toSymbol, startDate, endDate);
             if (data != null)
@@ -276,7 +277,7 @@ namespace DataLoader
                 }
                 return data;
             }
-
+            */
             // Fallback to API call
             if (Verbose)
             {

@@ -11,5 +11,7 @@
         Portfolio GetPortfolio();
 
         void UpdatePNL(double price);
+
+        void CloseAllPositions(double price, DateTime time);
     }
 }

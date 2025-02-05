@@ -57,13 +57,21 @@
             ClosedPositions.Add(position);
         }
 
+        public void CloseAllPositions(double price, DateTime time)
+        {
+            foreach (var position in _positions)
+            {
+                ClosePosition(position, price, time);
+            }
+        }
+
 
         public void UpdateProfitLoss(double price)
         {
             double temp = 0;
             foreach (var position in _positions)
             {
-                UpdateProfitLoss(price);
+                position.UpdatePNL(price);
                 temp += position.ProfitLoss.Last();
             }
             PortfolioProfitLoss.Add(temp);

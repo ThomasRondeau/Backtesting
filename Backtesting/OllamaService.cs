@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+namespace Backtesting;
 public class OllamaService
 {
     private readonly HttpClient _httpClient;

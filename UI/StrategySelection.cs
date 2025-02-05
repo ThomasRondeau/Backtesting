@@ -6,6 +6,7 @@ using StrategyTradeSoft;
 using System.Data;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace UI
 {
@@ -70,6 +71,8 @@ namespace UI
 
             Label limit = new Label() { Text = "Limit", Location = new Point(10, 220) };
             NumericUpDown limitValue = new NumericUpDown() { Location = new Point(120, 220), Width = 150 };
+            limitValue.DecimalPlaces = 2; 
+            limitValue.Increment = 0.01M; 
 
             Button deleteButton = new Button() { Text = "Supprimer", Location = new Point(120, 260), Width = 200, Height = 40 };
             deleteButton.Click += (s, e) => flowLayoutPanel1.Controls.Remove(productBlock);
@@ -118,7 +121,7 @@ namespace UI
                 string type = typeComboBox.SelectedItem.ToString();
                 string indicator = indicatorComboBox.SelectedItem.ToString();
                 OrderType orderType = orderTypeComboBox.SelectedItem.ToString() == "Buy" ? OrderType.Buy : OrderType.Sell;
-                int limit = (int)limitValue.Value;
+                double limit = (double)limitValue.Value;
 
                 Indicators instance;
                 switch (indicator)

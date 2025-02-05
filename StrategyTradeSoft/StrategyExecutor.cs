@@ -36,7 +36,7 @@ namespace StrategyTradeSoft
 
             foreach (var result in jsonData["results"])
             {
-                var datetime = DateTimeOffset.FromUnixTimeMilliseconds((long)result["t"]).DateTime;
+                var datetime = DateTimeOffset.FromUnixTimeMilliseconds((long)result["t"]).DateTime; //NULL REF TODO, diff entre format XML et format API
                 double close = (double)result["c"];
                 int volume = (int)result["v"];
 
@@ -67,13 +67,18 @@ namespace StrategyTradeSoft
                         {
                             foreach (Condition condition in product.Conditions.Where(c => c.Indicator == indicator))
                             {
-                                if (condition.Indicator.LastValue > condition.Value && condition.Type == OrderType.Sell)
+                                if (!condition.IsOpenPosition)
                                 {
-                                    orderService.Sell(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
-                                }
-                                else if (condition.Indicator.LastValue < condition.Value && condition.Type == OrderType.Buy)
-                                {
-                                    orderService.Buy(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
+                                    if (condition.Indicator.LastValue > condition.Value && condition.Type == OrderType.Sell)
+                                    {
+                                        orderService.Sell(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
+                                        condition.IsOpenPosition = true;
+                                    }
+                                    else if (condition.Indicator.LastValue < condition.Value && condition.Type == OrderType.Buy)
+                                    {
+                                        orderService.Buy(product.Id, product.Name, tick.Price, (int)product.Notional, tick.Time);
+                                        condition.IsOpenPosition = true;
+                                    }
                                 }
                             }
                         }
@@ -82,6 +87,7 @@ namespace StrategyTradeSoft
                 orderService.UpdatePNL(tick.Price); // To recalculate the PNL for each position plus the global portfolio PNL
                 Log($"Processed tick at {tick.Time} with price {tick.Price}");
             }
+            orderService.CloseAllPositions(Data.Last().Price, Data.Last().Time);
         }
 
 

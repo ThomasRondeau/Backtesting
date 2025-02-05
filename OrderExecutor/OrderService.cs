@@ -21,9 +21,14 @@
             _portfolio.ExecuteOrder(order);
         }
 
+        public void CloseAllPositions(double price, DateTime time)
+        {
+            _portfolio.CloseAllPositions(price, time);
+        }
+
         public IEnumerable<Position> GetAllPositions()
         {
-            return _portfolio._positions;
+            return _portfolio.Positions;
         }
 
         public Portfolio GetPortfolio()

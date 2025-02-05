@@ -44,6 +44,7 @@ namespace UI
             Column6 = new DataGridViewTextBoxColumn();
             panel1 = new Panel();
             label1 = new Label();
+            label2 = new Label();
             splitContainer1 = new SplitContainer();
             formsPlot1 = new ScottPlot.WinForms.FormsPlot();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -106,6 +107,7 @@ namespace UI
             // 
             panel1.Controls.Add(formsPlot1);
             panel1.Controls.Add(label1);
+            panel1.Controls.Add(label2);
             panel1.Location = new Point(2, 17);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
@@ -122,6 +124,16 @@ namespace UI
             label1.Size = new Size(136, 28);
             label1.TabIndex = 0;
             label1.Text = "Indicators :";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial Black", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(44, 350); // Position juste en dessous du formsPlot1
+            label2.Name = "label2";
+            label2.Size = new Size(200, 25);
+            label2.TabIndex = 2;
+            label2.Text = "Votre texte ici";
             // 
             // splitContainer1
             // 
@@ -180,6 +192,7 @@ namespace UI
         private DataGridViewTextBoxColumn Column6;
         private Panel panel1;
         private Label label1;
+        private Label label2;
         private SplitContainer splitContainer1;
         private ScottPlot.WinForms.FormsPlot formsPlot1;
     }

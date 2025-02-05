@@ -21,6 +21,7 @@
             EntryPrice = entryPrice;
             Quantity = quantity;
             EntryTime = entryTime;
+            ProfitLoss = [];
         }
 
         public void Close(double exitPrice, DateTime exitTime)

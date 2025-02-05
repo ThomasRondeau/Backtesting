@@ -1,6 +1,8 @@
 ﻿using IndicatorsApp.Indicators;
 using OrderExecutor.Classes;
+using ScottPlot.Colormaps;
 using ScottPlot.WinForms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UI
 {
@@ -8,43 +10,74 @@ namespace UI
     {
         private OutputData data;
 
+        public Output(INavigator navigator) : base(navigator)
+        {
+            InitializeComponent();
+        }
         public override void BeforeLoad(object? loadData)
         {
             if (loadData is OutputData donnees)
             {
                 data = donnees;
+                
+                PopulateCells();
+
+                List<double[]> Xdraws = [];
+                List<double[]> Ydraws = [];
+                //Draw indicators graph
+                foreach (Indicators indicator in data.indicators)
+                {
+                    List<double> dataX = [];
+                    List<double> dataY = [];
+                    for (int i = 0; i < indicator.Values.Count; i++)
+                    {
+                        dataX.Add(i);
+                        dataY.Add(indicator.Values[i]);
+                    }
+                    Xdraws.Add(dataX.ToArray());
+                    Ydraws.Add(dataY.ToArray());
+                }
+
+                // Draw data graph
+                List<double> datax = [];
+                List<double> datay = [];
+                int temp =0;
+                foreach (var result in data.data["results"])
+                {
+                    datax.Add(temp++);
+                    datay.Add((double)result["c"]);
+                }
+
+                Xdraws.Add(datax.ToArray());
+                Ydraws.Add(datay.ToArray());
+
+                TraceGraphs(formsPlot1, Xdraws, Ydraws);
+                label2.Text = "Analyse en cours...";
+                LoadAIResponse();
             }
         }
-        public Output(INavigator navigator) : base(navigator)
+
+        private async void LoadAIResponse()
         {
-            InitializeComponent();
-            PopulateCells();
-
-            List<double[]> Xdraws = [];
-            List<double[]> Ydraws = [];
-
-            foreach (Indicators indicator in data.indicators)
+            try
             {
-                List<double> dataX = [];
-                List<double> dataY = [];
-                for (int i = 0; i < indicator.Values.Count; i++)
-                {
-                    dataX.Add(i);
-                    dataY.Add(indicator.Values[i]);
-                }
-                Xdraws.Add(dataX.ToArray());
-                Ydraws.Add(dataY.ToArray());
+                string response = await GetAIResponse();
+                // Comme nous sommes dans un contexte UI, pas besoin d'Invoke
+                label2.Text = response;
             }
-            TraceGraphs(formsPlot1, Xdraws, Ydraws);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de l'analyse AI : {ex.Message}");
+                label2.Text = "Erreur lors de l'analyse";
+            }
         }
 
         public void PopulateCells()
         {
-            List<Position> positions = new List<Position>();
-            positions.AddRange(data.Portfolio.Positions);
-            positions.AddRange(data.Portfolio.ClosedPositions);
+            List<Position> positions = [.. data.Portfolio.Positions, .. data.Portfolio.ClosedPositions];
 
-            foreach (Position position in positions) {
+            foreach (Position position in positions)
+            {
                 string[] ligne = new string[]
                 {
                 position.ProductId.ToString(),
@@ -52,7 +85,7 @@ namespace UI
                 position.EntryTime.ToString(),
                 position.ExitPrice.ToString(),
                 position.ExitTime.ToString(),
-                position.ProfitLoss.ToString()
+                position.ProfitLoss.Last().ToString()
                 };
                 dataGridView1.Rows.Add(ligne);
             }
@@ -87,4 +120,33 @@ namespace UI
 
             graphique.Refresh();
         }
+
+        public async Task<string> GetAIResponse()
+        {
+            List<Position> positions = [.. data.Portfolio.Positions, .. data.Portfolio.ClosedPositions];
+
+            string AIfeeding = "Voici les positions ouvertes durant le trading\n";
+            foreach (Position position in positions)
+            {
+                string ligne = $"Position {position.ProductId} " +
+                    $"Prix entrée {position.EntryPrice} " +
+                    $"{position.EntryTime} " +
+                    $"Prix Sortie {position.ExitPrice} " +
+                    $"{position.ExitTime} " +
+                    $"PNL {position.ProfitLoss.Last()}\n";
+                AIfeeding += ligne;
+            }
+
+            AIfeeding += "\nVoici les données de trading\n";
+            foreach (var result in data.data["results"])
+            {
+                AIfeeding += $"Tick at {DateTimeOffset.FromUnixTimeMilliseconds((long)result["t"]).DateTime:yyyy-MM-dd} with price {result["c"]}\n";
+            }
+
+            OllamaService ollama = new("llama3.2");
+            return await ollama.GenerateResponse(
+                "A partir des données que je vais te passer, analyse et dis moi comment j'aurais pu réaliser un meilleur investissement en prennant moins de risques : " +
+                AIfeeding);
+        }
+    }
 }

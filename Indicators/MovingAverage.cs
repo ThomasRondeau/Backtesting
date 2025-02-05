@@ -8,8 +8,6 @@ namespace IndicatorsApp.Indicators
     {
         private int period;
         private IndicatorCache<double> cache;
-        public List<double> Values { get; private set; }
-        public double LastValue { get; private set; }
         public MovingAverage(int period)
         {
             this.period = period;
